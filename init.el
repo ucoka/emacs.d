@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/03/26 16:22:49
+; Last Update: 2023/03/26 16:28:26
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -112,7 +112,6 @@
 (global-set-key "\C-c;r" 'revert-buffer) ; (custom) update-file
 (global-set-key "\C-cu" 'revert-buffer) ; (custom) update file
 (define-key global-map "\C-x\C-b" 'buffer-menu) ; (custom)
-(define-key global-map [?\C-.] 'redo)              ; (custom) redo
 
 (define-key global-map [?\C-,] 'scroll-down)       ; (custom) scroll-down
 (define-key global-map "\M-v" 'scroll-down)        ; (custom) scroll-down
@@ -580,10 +579,10 @@
 ;(require 'wb-line-number)
 ;(wb-line-number-toggle)
 
-;---- redo ---- (redo.el)
+;---- redo ----
 (when (locate-library "redo")
   (require 'redo)
-;  (define-key ctl-x-map (if window-system "U" "r") 'redo)
+  (define-key global-map [?\C-.] 'redo)
 )
 ;;
 
