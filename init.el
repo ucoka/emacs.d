@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/03/26 16:20:49
+; Last Update: 2023/03/26 16:22:49
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -401,7 +401,7 @@
     (setq tab-width 4)
     (setq indent-tabs-mode nil)
 
-    (semantic-mode 1)
+;    (semantic-mode 1)
 ))
 ;;;
 
