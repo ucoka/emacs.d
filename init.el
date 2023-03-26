@@ -8,9 +8,10 @@
 
 ;---- 0. load-path ----
 (let ((default-directory (expand-file-name "~/.emacs.d/local-lisp")))
-  (add-to-list 'load-path default-directory)
-  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-      (normal-top-level-add-subdirs-to-load-path)))
+  (when (file-exists-p default-directory)
+    (add-to-list 'load-path default-directory)
+    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+	(normal-top-level-add-subdirs-to-load-path))))
 
 ; ---- 1. startup frame, mode line ----
 
