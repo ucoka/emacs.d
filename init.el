@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/03/26 16:28:26
+; Last Update: 2023/04/15 09:40:05
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -38,20 +38,28 @@
 ;;
 
 ; determine the default width and height of the frame from the screen resolution
-(if (and (eq (x-display-pixel-width) 1024) (eq (x-display-pixel-height) 768))
-    (setq default-frame-alist
-          (append
-           (list
-            '(width . 165) ; 1024x768
-            '(height . 57) ; 1024x768
-            )default-frame-alist))
-  (setq default-frame-alist
-        (append
-         (list
-          '(width . 209) ; 1280x1024
-          '(height . 76) ; 1280x1024
-          )default-frame-alist))
-  )
+(cond ((and (eq (x-display-pixel-width) 2560) (eq (x-display-pixel-height) 1440))
+       (setq default-frame-alist
+             (append
+              (list
+               '(width . 209)
+               '(height . 76)
+               )default-frame-alist)))
+      ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
+       (setq default-frame-alist
+             (append
+              (list
+               '(width . 205)
+               '(height . 54)
+               )default-frame-alist)))
+      (t
+       (setq default-frame-alist
+             (append
+              (list
+               '(width . 165)
+               '(height . 57)
+               )default-frame-alist)))
+      )
 
 ; Fixed a bug that the size of the initial display frame was not set to the default-frame-alist setting size. (NTEmacs23.2)
 (add-hook 'window-setup-hook
