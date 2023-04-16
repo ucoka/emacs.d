@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/15 09:40:05
+; Last Update: 2023/04/16 20:47:19
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -38,11 +38,11 @@
 ;;
 
 ; determine the default width and height of the frame from the screen resolution
-(cond ((and (eq (x-display-pixel-width) 2560) (eq (x-display-pixel-height) 1440))
+(cond ((and (>= (x-display-pixel-width) 2560) (>= (x-display-pixel-height) 1440))
        (setq default-frame-alist
              (append
               (list
-               '(width . 209)
+               '(width . 316)
                '(height . 76)
                )default-frame-alist)))
       ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
