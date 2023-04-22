@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/16 20:47:19
+; Last Update: 2023/04/22 18:15:23
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -38,28 +38,31 @@
 ;;
 
 ; determine the default width and height of the frame from the screen resolution
-(cond ((and (>= (x-display-pixel-width) 2560) (>= (x-display-pixel-height) 1440))
-       (setq default-frame-alist
-             (append
-              (list
-               '(width . 316)
-               '(height . 76)
-               )default-frame-alist)))
-      ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
-       (setq default-frame-alist
-             (append
-              (list
-               '(width . 205)
-               '(height . 54)
-               )default-frame-alist)))
-      (t
-       (setq default-frame-alist
-             (append
-              (list
-               '(width . 165)
-               '(height . 57)
-               )default-frame-alist)))
-      )
+(let (my-width my-height)
+  (if (featurep 'w32) ; NTEmacs
+      (cond ((and (>= (x-display-pixel-width) 2560) (>= (x-display-pixel-height) 1440))
+             (setq my-width 316)
+             (setq my-height 76))
+            ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
+             (setq my-width 205)
+             (setq my-height 54))
+            (t
+             (setq my-width 165)
+             (setq my-height 57))
+            )
+    (cond ((and (>= (x-display-pixel-width) 2560) (>= (x-display-pixel-height) 1440))
+           (setq my-width 210)
+           (setq my-height 56))
+          ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
+           (setq my-width 210)
+           (setq my-height 56))
+          (t
+           (setq my-width 210)
+           (setq my-height 56))
+          ))
+
+  (setq default-frame-alist
+        (append `((width . ,my-width) (height . ,my-height)) default-frame-alist)))
 
 ; Fixed a bug that the size of the initial display frame was not set to the default-frame-alist setting size. (NTEmacs23.2)
 (add-hook 'window-setup-hook
