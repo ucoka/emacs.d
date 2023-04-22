@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/22 23:33:29
+; Last Update: 2023/04/23 00:00:09
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -25,18 +25,23 @@
 
 (setq-default cursor-in-non-selected-windows nil) ; show/not show cursor in other windows
 
-(setq default-frame-alist
-      (append
-       (list
-        '(foreground-color . "peach puff") ;text-color
-        '(background-color . "dark slate gray") ;background-color
-        '(top . 0) ;frame top-left position Y-coordinate
-        '(left . 0) ;frame top-left position X coordinate
-        '(vertical-scroll-bars . nil) ;scroll-bars left/right/hide (left[default]/right/nil)
-        '(cursor-color . "white") ;cursor color (can be set for box/bar)
-        '(line-spacing . 0)
-        )
-       default-frame-alist))
+(let ((my-background-color))
+  (if (featurep 'w32) ; NTEmacs
+      (setq my-background-color "gray15")
+    (setq my-background-color "dark slate gray"))
+
+  (setq default-frame-alist
+        (append
+         (list
+          '(foreground-color . "peach puff") ;text-color
+          `(background-color . ,my-background-color) ;background-color
+          '(top . 0) ;frame top-left position Y-coordinate
+          '(left . 0) ;frame top-left position X coordinate
+          '(vertical-scroll-bars . nil) ;scroll-bars left/right/hide (left[default]/right/nil)
+          '(cursor-color . "white") ;cursor color (can be set for box/bar)
+          '(line-spacing . 0)
+          )
+         default-frame-alist)))
 ;;
 
 ; determine the default width and height of the frame from the screen resolution
