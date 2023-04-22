@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/22 18:15:23
+; Last Update: 2023/04/22 23:33:29
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -12,6 +12,8 @@
     (add-to-list 'load-path default-directory)
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	(normal-top-level-add-subdirs-to-load-path))))
+
+;(setenv "PATH" (concat "c:/msys64/mingw64/bin;c:/msys64/usr/bin;" (getenv "PATH")))
 
 ; ---- 1. startup frame, mode line ----
 
@@ -1009,6 +1011,11 @@ Activate on all buffers." t)
 ;(customize-set-variable 'tramp-default-method "ftp")
 ;(setq remote-file-name-inhibit-locks t)
 ;(setq tramp-default-method "ftp")
+;(when (eq window-system 'w32)
+;;  (setq tramp-default-method "pscp")
+;;  (setq tramp-default-method "ftp")
+;;  (setq tramp-use-ssh-controlmaster-options nil)
+;)
 
 (defun explorer-current-directory ()
   "explorer current diretory"
