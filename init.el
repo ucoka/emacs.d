@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/23 00:00:09
+; Last Update: 2023/04/30 14:46:59
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -14,6 +14,10 @@
 	(normal-top-level-add-subdirs-to-load-path))))
 
 ;(setenv "PATH" (concat "c:/msys64/mingw64/bin;c:/msys64/usr/bin;" (getenv "PATH")))
+
+(if (and (eq system-type 'gnu/linux) (string-match "Ubuntu" (shell-command-to-string "lsb_release -d")))
+    (add-to-list 'load-path "/usr/share/emacs/site-lisp/global")
+    )
 
 ; ---- 1. startup frame, mode line ----
 
@@ -1247,6 +1251,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(org2blog modus-themes helm-ag emojify ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony ecb cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
- '(tramp-connection-timeout 10)
-)
+   '(go-mode org2blog modus-themes helm-ag emojify ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony ecb cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+ '(tramp-connection-timeout 10))
