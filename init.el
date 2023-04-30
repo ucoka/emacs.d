@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/04/30 14:46:59
+; Last Update: 2023/04/30 14:55:10
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1228,10 +1228,10 @@ Activate on all buffers." t)
   (global-emojify-mode)
   )
 
-;;---- magit ----
-; (when (locate-library "magit")
-;   (require 'magit)
-; )
+;---- magit ----
+ (when (locate-library "magit")
+   (require 'magit)
+ )
 
 ;;---- private settings ----
 (let ((my-private-init-file "~/.emacs.private.d/init-private-setting.el"))
