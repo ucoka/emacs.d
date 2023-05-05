@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/05/01 16:55:24
+; Last Update: 2023/05/05 14:38:13
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -156,7 +156,7 @@
 ;
 (define-key global-map "\C-t" 'scroll-down)          ; (custom)
 ;
-;(define-key global-map "\M-g" 'goto-line)
+(define-key global-map "\M-g" 'goto-line)
 ;
 (define-key global-map "\C-h" 'backward-delete-char-untabify)    ; (custom)
 
@@ -1231,7 +1231,7 @@ Activate on all buffers." t)
 ;---- magit ----
  (when (locate-library "magit")
    (require 'magit)
-   (define-key global-map "\M-g" 'magit)
+   (define-key global-map "\M-o" 'magit)
  )
 
 ;;---- private settings ----
