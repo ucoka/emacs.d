@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/05/05 14:38:13
+; Last Update: 2023/05/05 15:06:39
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1103,23 +1103,23 @@ Activate on all buffers." t)
 ;  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 ;  (setq flycheck-idle-change-delay 3)
 
-  (flycheck-define-checker my-gcc
-    "A C/C++ checker using g++."
-    :command ("gcc" "-c" "-I../../inc" "-I." "-Ic:/msys64/mingw32/i686-w64-mingw32/include""-O1" "-Wall" source "-o" temporary-file-name)
-    :error-patterns  ((error line-start
-                             (file-name) ":" line ":" column ":" " Error: " (message)
-                             line-end)
-                      (error line-start
-                             (file-name) ":" line ":" column ":" " Fatal Error: " (message)
-                             line-end)
-                      (warning line-start
-                               (file-name) ":" line ":" column ":" " Warning: " (message)
-                               line-end))
-    :modes (c-mode c++-mode))
-
-  (add-hook 'c-mode-common-hook
-            '(lambda()
-               (flycheck-select-checker 'my-gcc)))
+;  (flycheck-define-checker my-gcc
+;    "A C/C++ checker using g++."
+;    :command ("gcc" "-c" "-I../../inc" "-I." "-Ic:/msys64/mingw32/i686-w64-mingw32/include""-O1" "-Wall" source "-o" temporary-file-name)
+;    :error-patterns  ((error line-start
+;                             (file-name) ":" line ":" column ":" " Error: " (message)
+;                             line-end)
+;                      (error line-start
+;                             (file-name) ":" line ":" column ":" " Fatal Error: " (message)
+;                             line-end)
+;                      (warning line-start
+;                               (file-name) ":" line ":" column ":" " Warning: " (message)
+;                               line-end))
+;    :modes (c-mode c++-mode))
+;
+;  (add-hook 'c-mode-common-hook
+;            '(lambda()
+;               (flycheck-select-checker 'my-gcc)))
 
   (when (locate-library "flycheck-pos-tip")
     (with-eval-after-load 'flycheck
