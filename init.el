@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/05/06 07:58:56
+; Last Update: 2023/06/03 13:31:15
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -31,8 +31,8 @@
 
 (let ((my-background-color))
   (if (featurep 'w32) ; NTEmacs
-      (setq my-background-color "gray15")
-    (setq my-background-color "dark slate gray"))
+      (setq my-background-color "dark slate gray")
+    (setq my-background-color "gray15"))
 
   (setq default-frame-alist
         (append
