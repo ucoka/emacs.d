@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/06/03 13:31:15
+; Last Update: 2023/06/25 13:51:51
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -602,11 +602,12 @@
 ;(wb-line-number-toggle)
 
 ;---- redo ----
-(when (locate-library "redo")
-  (require 'redo)
-  (define-key global-map [?\C-.] 'redo)
-)
+;(when (locate-library "redo")
+;  (require 'redo)
+;  (define-key global-map [?\C-.] 'redo)
+;)
 ;;
+(define-key global-map [?\C-.] 'undo-redo)
 
 ;;;; When region is active, use Backspace to remove it
 (when transient-mark-mode
