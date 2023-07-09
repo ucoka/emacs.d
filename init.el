@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/06/25 13:51:51
+; Last Update: 2023/07/08 17:30:53
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -110,6 +110,7 @@
 (set-locale-environment "C") ; in order to set the week of a day in English like "Sunday"
 
 ; ---- 3. Windows IME ----
+(setq quail-japanese-use-double-n t)
 
 ; ---- 4. font ----
 (if (featurep 'w32) ; NTEmacs
