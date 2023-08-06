@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/08/06 12:09:05
+; Last Update: 2023/08/06 22:59:08
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -727,10 +727,11 @@ Activate on all buffers." t)
   "Remove dired-mode buffers."
   (interactive)
   (let ((bl (buffer-list)) (kill-list '()))
+    (setq temp-buffer (current-buffer))
     (while bl
       (set-buffer (car bl))
 
-      (if (string-match "Dired by \\(name\\|date\\)" mode-name)
+      (if (and (stringp mode-name) (string-match "Dired by \\(name\\|date\\)" mode-name))
 	  (add-to-list 'kill-list (car bl)))
 
       (setq bl (cdr bl)))
