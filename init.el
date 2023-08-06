@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/07/08 17:30:53
+; Last Update: 2023/08/06 12:09:05
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -209,7 +209,6 @@
 ; function-name
 (set-face-foreground 'font-lock-function-name-face "DodgerBlue")
 (set-face-bold-p 'font-lock-function-name-face t)
-(set-face-underline-p 'font-lock-function-name-face t)
 
 ; keyword
 (set-face-foreground 'font-lock-keyword-face "SteelBlue")
