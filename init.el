@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/08/06 22:59:08
+; Last Update: 2023/08/15 17:07:21
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -12,6 +12,8 @@
     (add-to-list 'load-path default-directory)
     (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	(normal-top-level-add-subdirs-to-load-path))))
+
+(add-to-list 'load-path "~/.emacs.private.d")
 
 ;(setenv "PATH" (concat "c:/msys64/mingw64/bin;c:/msys64/usr/bin;" (getenv "PATH")))
 
@@ -1234,6 +1236,7 @@ Activate on all buffers." t)
  (when (locate-library "magit")
    (require 'magit)
    (define-key global-map "\M-o" 'magit)
+   (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
  )
 
 ;;---- private settings ----
@@ -1254,5 +1257,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(kconfig-mode go-mode org2blog modus-themes helm-ag emojify ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony ecb cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag emojify ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony ecb cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
