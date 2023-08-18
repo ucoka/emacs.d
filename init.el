@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/08/18 22:35:30
+; Last Update: 2023/08/18 22:37:28
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -400,19 +400,9 @@
                 ("\\.cmn$" . c-mode) ; .cmn file : c-mode
                 ) auto-mode-alist))
 ;
-(defconst my-style
-  '(
-	(c-offsets-alist . (
-                        (comment-intro . 4)
-                        (case-label . *)           ; or 2
-                        (statement-case-intro . *) ; or 2
-                        ;(access-label . 0)
-                        ))
-    )
-  "My Style")
 ;
 (add-hook
- 'c-mode-hook
+ 'c-mode-common-hook
  '(lambda()
     (c-set-style "k&r") ;style for "Programming Language C (aka K&R)
     (when (locate-library "gtags")
