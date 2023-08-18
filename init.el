@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/08/15 17:07:21
+; Last Update: 2023/08/18 22:35:30
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -163,6 +163,7 @@
 ;
 (define-key global-map "\C-h" 'backward-delete-char-untabify)    ; (custom)
 
+(define-key emacs-lisp-mode-map (kbd "C-c C-f") nil) ; To disable elisp-byte-compile-file
 (define-key global-map "\C-c\C-f" 'up-list) ;(custom) move to corresponding parenthesis (down)
 (define-key global-map "\C-c\C-o" 'backward-up-list) ;(custom) move to the corresponding parenthesis (upward)
 
