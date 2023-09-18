@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/08/18 22:37:28
+; Last Update: 2023/09/18 10:41:28
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -109,7 +109,7 @@
   (set-coding-system-priority 'utf-8 'euc-jp 'iso-2022-jp 'cp932)
 )
 
-(set-locale-environment "C") ; in order to set the week of a day in English like "Sunday"
+;(set-locale-environment "C") ; in order to set the week of a day in English like "Sunday"
 
 ; ---- 3. Windows IME ----
 (setq quail-japanese-use-double-n t)
@@ -994,8 +994,8 @@ Activate on all buffers." t)
   (setq LaTeX-item-indent 2)
                                         ;(add-to-list 'TeX-output-view-style
                                         ;             '("^dvi$" "." "dvipdfmx %dS %d && open %s.pdf"))
-  (add-to-list 'TeX-output-view-style
-               '("^dvi$" "." "dvipdfmx.exe %dS %d && \"C:/Program Files/Adobe/Reader 9.0/Reader/AcroRd32.exe\" %s.pdf" ))
+;  (add-to-list 'TeX-output-view-style
+;               '("^dvi$" "." "dvipdfmx.exe %dS %d && \"C:/Program Files/Adobe/Reader 9.0/Reader/AcroRd32.exe\" %s.pdf" ))
 
 ;  (setq TeX-view-program-selection '((output-dvi "DVIviewer")))
 )
@@ -1032,10 +1032,10 @@ Activate on all buffers." t)
 (global-set-key "\C-ce" 'explorer-current-directory)
 
 ;---- ECB(Emacs Code Browser) ----
-(when (locate-library "ecb")
-  (require 'ecb)
-;  (custom-set-variables '(ecb-options-version "2.40"))
-  )
+;(when (locate-library "ecb")
+;  (require 'ecb)
+;;  (custom-set-variables '(ecb-options-version "2.40"))
+;  )
 
 ;---- package ----
 (when (locate-library "package")
@@ -1218,10 +1218,10 @@ Activate on all buffers." t)
 )
 
 ;---- emojify ----
-(when (locate-library "emojify")
-  (require 'emojify)
-  (global-emojify-mode)
-  )
+;(when (locate-library "emojify")
+;  (require 'emojify)
+;  (global-emojify-mode)
+;  )
 
 ;---- magit ----
  (when (locate-library "magit")
@@ -1248,5 +1248,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag emojify ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony ecb cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
