@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/09/18 10:41:28
+; Last Update: 2023/09/24 10:59:43
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -279,7 +279,16 @@
 	    (make-local-variable 'dired-mode-p)
 	    (setq dired-mode-p t)))
 (setq frame-title-format-orig frame-title-format)
-(setq frame-title-format '((buffer-file-name "%f" (dired-mode-p default-directory mode-line-buffer-identification))))
+(setq frame-title-format
+  '((:eval
+     (let ((file-name (buffer-file-name))
+           (user (getenv "USER"))
+           (hostname (getenv "HOSTNAME")))
+       (if file-name
+           (concat (abbreviate-file-name file-name) " - " user "@" hostname)
+         (concat "%b - " user "@" hostname))))))
+; to get the hostname through getenv, the following setting is required in .bashrc
+; export HOSTNAME=$(hostname)
 
 ;;; wdired
 (when (locate-library "wdired")
