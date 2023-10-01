@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/09/24 10:59:43
+; Last Update: 2023/10/01 20:05:23
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1058,9 +1058,14 @@ Activate on all buffers." t)
 )
 
 ;---- auto-complete ----
-(when (locate-library "auto-complete")
-  (require 'auto-complete-config)
-  (ac-config-default)
+;(when (locate-library "auto-complete")
+;  (require 'auto-complete-config)
+;  (ac-config-default)
+;  )
+
+;---- company ----
+(when (locate-library "company")
+  (require 'company)
   )
 
 ;---- about buffer ----
@@ -1239,6 +1244,20 @@ Activate on all buffers." t)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
  )
 
+;---- lsp-java ----
+(when (locate-library "lsp-java")
+  (require 'lsp-java)
+  (add-hook 'java-mode-hook #'lsp)
+
+  (when (locate-library "lsp-ui")
+    (use-package lsp-ui)
+    )
+
+  (when (locate-library "dap-mode")
+    (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+    )
+  )
+
 ;;---- private settings ----
 (let ((my-private-init-file "~/.emacs.private.d/init-private-setting.el"))
   (when (file-exists-p my-private-init-file)
@@ -1257,5 +1276,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
