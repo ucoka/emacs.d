@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 21:41:12
+; Last Update: 2023/10/08 21:41:52
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -143,7 +143,6 @@
 (global-set-key "\C-cu" 'revert-buffer) ; (custom) update file
 (define-key global-map "\C-x\C-b" 'buffer-menu) ; (custom)
 
-(define-key global-map [?\C-,] 'scroll-down)       ; (custom) scroll-down
 (define-key global-map "\M-v" 'scroll-down)        ; (custom) scroll-down
 
 
