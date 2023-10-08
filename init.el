@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 21:47:41
+; Last Update: 2023/10/08 23:14:35
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1282,14 +1282,37 @@ Activate on all buffers." t)
 
   (global-set-key [?\C-,] 'xref-go-back)
 
+;  (setq lsp-keymap-prefix "C-c l")
+
 ;  (global-set-key "\M-t" 'lsp-goto-implementation)
 ;  (global-set-key "\M-r" 'lsp-find-references)
 ;  (global-set-key "\M-s" 'lsp-find-definition)
-  (global-set-key "\C-clc" 'compile                    )
   (global-set-key "\C-cli" 'lsp-goto-implementation    )
   (global-set-key "\C-cld" 'lsp-find-definition        )
   (global-set-key "\C-clr" 'lsp-find-references        )
   (global-set-key "\C-clh" 'lsp-describe-thing-at-point)
+
+;  (setq lsp-enable-symbol-highlighting t)    ; 1. Symbol highlighting
+;  (setq lsp-ui-doc-enable t)                 ; 2. lsp-ui-doc - on hover dialogs. * disable via
+;  (setq lsp-ui-doc-show-with-cursor nil)     ;    * disable cursor hover (keep mouse hover)
+;  (setq lsp-ui-doc-show-with-mouse nil)      ;    * disable mouse hover (keep cursor hover)
+;  (setq lsp-lens-enable t)                   ; 3. Lenses
+;  (setq lsp-headerline-breadcrumb-enable t)  ; 4. Headerline
+;  (setq lsp-ui-sideline-enable t)            ; 5. Sideline code actions * disable whole sideline via
+  (setq lsp-ui-sideline-show-code-actions t) ;    * hide code actions
+;  (setq lsp-ui-sideline-enable t)            ; 6. Sideline hover symbols * disable whole sideline via
+;  (setq lsp-modeline-code-actions-enable t)  ; 7. Modeline code actions
+;  (setq lsp-diagnostics-provider :auto)      ; 8. Flycheck (or flymake if no flycheck is present)
+;  (setq lsp-ui-sideline-enable t)            ; 9. Sideline diagnostics * disable whole sideline via
+;  (setq lsp-ui-sideline-show-diagnostics t)  ;    * hide only errors
+;  (setq lsp-eldoc-enable-hover t)            ; 10. Eldoc
+;  (setq lsp-modeline-diagnostics-enable t)   ; 11. Modeline diagnostics statistics
+;  (setq lsp-signature-auto-activate nil)     ; 12. Signature help
+;  '(lsp-signature-auto-activate '(:on-trigger-char :on-trigger-char));; you could manually request them via `lsp-signature-activate`
+;  (setq lsp-signature-render-documentation t); 13. Signature help documentation (keep the signatures)
+;  (setq lsp-completion-provider :capf)       ; 14. Completion (company-mode)
+;  (setq lsp-completion-show-detail t)        ; 15. Completion item detail
+;  (setq lsp-completion-show-kind t)          ; 16. Completion item kind
 
   (when (locate-library "lsp-java")
     (require 'lsp-java)
