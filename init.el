@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/01 20:05:23
+; Last Update: 2023/10/08 21:40:41
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -29,6 +29,8 @@
 (auto-image-file-mode) ; display image files; use find-file to see images
 (menu-bar-mode -1) ;show/hide menu bar (t[default]/nil)
 
+;; cursor
+(setq-default cursor-type 'bar) ; box/bar/(bar . WIDTH)/hollow
 (setq-default cursor-in-non-selected-windows nil) ; show/not show cursor in other windows
 
 (let ((my-background-color))
