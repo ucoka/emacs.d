@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 21:45:31
+; Last Update: 2023/10/08 21:47:41
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1310,6 +1310,16 @@ Activate on all buffers." t)
       (global-set-key "\C-cprc" 'dap-java-run-test-class   )
       )
     )
+)
+
+;---- buffer-history ----
+(when (locate-library "buffer-history")
+  (require 'buffer-history)
+  (global-set-key "\C-cbm" 'buffer-history-save-current-position)
+  (global-set-key "\C-cbl" 'buffer-history-list-display)
+;  (global-set-key [?\C-,] 'buffer-history-pop-stack)
+  ;; Add advice to run our function after `switch-to-buffer`
+;  (advice-add 'switch-to-buffer :around 'my-switch-to-buffer)
 )
 
 ;;---- private settings ----
