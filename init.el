@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 21:43:18
+; Last Update: 2023/10/08 21:45:31
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1276,19 +1276,41 @@ Activate on all buffers." t)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
  )
 
-;---- lsp-java ----
-(when (locate-library "lsp-java")
-  (require 'lsp-java)
-  (add-hook 'java-mode-hook #'lsp)
+;---- lsp-mode ----
+(when (locate-library "lsp-mode")
+  (require 'lsp-mode)
 
-  (when (locate-library "lsp-ui")
-    (use-package lsp-ui)
-    )
+  (global-set-key [?\C-,] 'xref-go-back)
 
-  (when (locate-library "dap-mode")
-    (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+;  (global-set-key "\M-t" 'lsp-goto-implementation)
+;  (global-set-key "\M-r" 'lsp-find-references)
+;  (global-set-key "\M-s" 'lsp-find-definition)
+  (global-set-key "\C-clc" 'compile                    )
+  (global-set-key "\C-cli" 'lsp-goto-implementation    )
+  (global-set-key "\C-cld" 'lsp-find-definition        )
+  (global-set-key "\C-clr" 'lsp-find-references        )
+  (global-set-key "\C-clh" 'lsp-describe-thing-at-point)
+
+  (when (locate-library "lsp-java")
+    (require 'lsp-java)
+    (add-hook 'java-mode-hook #'lsp)
+
+    (when (locate-library "lsp-ui")
+      (use-package lsp-ui)
+      )
+
+    (when (locate-library "dap-mode")
+      (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+
+      (global-set-key "\C-cpdd" 'dap-java-debug)
+      (global-set-key "\C-cpdm" 'dap-java-debug-test-method)
+      (global-set-key "\C-cpdc" 'dap-java-debug-test-class )
+      (global-set-key "\C-cprm" 'dap-java-run-test-method  )
+      (global-set-key "\C-cprt" 'dap-java-run-last-test    )
+      (global-set-key "\C-cprc" 'dap-java-run-test-class   )
+      )
     )
-  )
+)
 
 ;;---- private settings ----
 (let ((my-private-init-file "~/.emacs.private.d/init-private-setting.el"))
