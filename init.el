@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 21:40:41
+; Last Update: 2023/10/08 21:41:12
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -32,6 +32,9 @@
 ;; cursor
 (setq-default cursor-type 'bar) ; box/bar/(bar . WIDTH)/hollow
 (setq-default cursor-in-non-selected-windows nil) ; show/not show cursor in other windows
+
+;; saveplace
+(save-place-mode 1)
 
 (let ((my-background-color))
   (if (featurep 'w32) ; NTEmacs
