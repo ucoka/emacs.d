@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/08 23:14:35
+; Last Update: 2023/10/14 17:56:47
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1313,6 +1313,12 @@ Activate on all buffers." t)
 ;  (setq lsp-completion-provider :capf)       ; 14. Completion (company-mode)
 ;  (setq lsp-completion-show-detail t)        ; 15. Completion item detail
 ;  (setq lsp-completion-show-kind t)          ; 16. Completion item kind
+
+  (setq lsp-clients-clangd-executable "/snap/bin/clangd")
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (when (locate-library "dap-cpptools")
+    (require 'dap-cpptools))
 
   (when (locate-library "lsp-java")
     (require 'lsp-java)
