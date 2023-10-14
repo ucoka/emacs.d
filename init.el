@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/14 17:56:47
+; Last Update: 2023/10/14 17:57:52
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1274,6 +1274,9 @@ Activate on all buffers." t)
    (require 'magit)
    (define-key global-map "\M-o" 'magit)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
+
+   (when (locate-library "forge")
+     (require 'forge))
  )
 
 ;---- lsp-mode ----
@@ -1369,5 +1372,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
