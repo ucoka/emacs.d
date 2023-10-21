@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/14 17:57:52
+; Last Update: 2023/10/21 19:00:56
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1282,6 +1282,8 @@ Activate on all buffers." t)
 ;---- lsp-mode ----
 (when (locate-library "lsp-mode")
   (require 'lsp-mode)
+
+  (setq lsp-references-exclude-definition t) ; "If non-nil, exclude declarations when finding references."
 
   (global-set-key [?\C-,] 'xref-go-back)
 
