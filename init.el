@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/21 19:00:56
+; Last Update: 2023/10/29 10:34:04
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1269,20 +1269,18 @@ Activate on all buffers." t)
 ;  (global-emojify-mode)
 ;  )
 
-;---- magit ----
- (when (locate-library "magit")
-   (require 'magit)
+(use-package magit
+  :config
    (define-key global-map "\M-o" 'magit)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
+   )
 
-   (when (locate-library "forge")
-     (require 'forge))
- )
+(use-package forge
+  :after magit-mode
+)
 
-;---- lsp-mode ----
-(when (locate-library "lsp-mode")
-  (require 'lsp-mode)
-
+(use-package lsp-mode
+  :config
   (setq lsp-references-exclude-definition t) ; "If non-nil, exclude declarations when finding references."
 
   (global-set-key [?\C-,] 'xref-go-back)
@@ -1322,29 +1320,34 @@ Activate on all buffers." t)
   (setq lsp-clients-clangd-executable "/snap/bin/clangd")
   (add-hook 'c-mode-hook 'lsp)
   (add-hook 'c++-mode-hook 'lsp)
-  (when (locate-library "dap-cpptools")
-    (require 'dap-cpptools))
-
-  (when (locate-library "lsp-java")
-    (require 'lsp-java)
-    (add-hook 'java-mode-hook #'lsp)
-
-    (when (locate-library "lsp-ui")
-      (use-package lsp-ui)
-      )
-
-    (when (locate-library "dap-mode")
-      (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
-
-      (global-set-key "\C-cpdd" 'dap-java-debug)
-      (global-set-key "\C-cpdm" 'dap-java-debug-test-method)
-      (global-set-key "\C-cpdc" 'dap-java-debug-test-class )
-      (global-set-key "\C-cprm" 'dap-java-run-test-method  )
-      (global-set-key "\C-cprt" 'dap-java-run-last-test    )
-      (global-set-key "\C-cprc" 'dap-java-run-test-class   )
-      )
-    )
 )
+
+(use-package lsp-java
+  :after lsp-mode
+  :config
+  (add-hook 'java-mode-hook #'lsp)
+  )
+
+(use-package lsp-ui
+  :after lsp-mode
+  )
+
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode)
+  (global-set-key "\C-cpdd" 'dap-java-debug)
+  (global-set-key "\C-cpdm" 'dap-java-debug-test-method)
+  (global-set-key "\C-cpdc" 'dap-java-debug-test-class )
+  (global-set-key "\C-cprm" 'dap-java-run-test-method  )
+  (global-set-key "\C-cprt" 'dap-java-run-last-test    )
+  (global-set-key "\C-cprc" 'dap-java-run-test-class   )
+  )
+
+(use-package dap-cpptools
+  :after dap-mode
+  )
+
 
 ;---- buffer-history ----
 (when (locate-library "buffer-history")
