@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/29 10:34:04
+; Last Update: 2023/10/29 10:55:17
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1269,6 +1269,14 @@ Activate on all buffers." t)
 ;  (global-emojify-mode)
 ;  )
 
+(use-package rust-mode
+  :ensure t
+  :custom rust-format-on-save t)
+
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
+
 (use-package magit
   :config
    (define-key global-map "\M-o" 'magit)
@@ -1280,8 +1288,16 @@ Activate on all buffers." t)
 )
 
 (use-package lsp-mode
+  :ensure t
+  :hook
+  (rust-mode . lsp)
+  (c-mode . lsp)
+  (c++-mode . lsp)
+  :custom
+  (lsp-rust-server 'rust-analyzer)
   :config
   (setq lsp-references-exclude-definition t) ; "If non-nil, exclude declarations when finding references."
+  (setq exec-path (cons (expand-file-name "~/bin") exec-path))
 
   (global-set-key [?\C-,] 'xref-go-back)
 
@@ -1318,8 +1334,6 @@ Activate on all buffers." t)
 ;  (setq lsp-completion-show-kind t)          ; 16. Completion item kind
 
   (setq lsp-clients-clangd-executable "/snap/bin/clangd")
-  (add-hook 'c-mode-hook 'lsp)
-  (add-hook 'c++-mode-hook 'lsp)
 )
 
 (use-package lsp-java
