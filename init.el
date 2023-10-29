@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/29 10:55:17
+; Last Update: 2023/10/29 13:46:56
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -1293,6 +1293,8 @@ Activate on all buffers." t)
   (rust-mode . lsp)
   (c-mode . lsp)
   (c++-mode . lsp)
+  (python-mode . lsp)
+  (sh-mode . lsp)
   :custom
   (lsp-rust-server 'rust-analyzer)
   :config
@@ -1338,8 +1340,6 @@ Activate on all buffers." t)
 
 (use-package lsp-java
   :after lsp-mode
-  :config
-  (add-hook 'java-mode-hook #'lsp)
   )
 
 (use-package lsp-ui
@@ -1362,6 +1362,10 @@ Activate on all buffers." t)
   :after dap-mode
   )
 
+(use-package lsp-pyright
+  :ensure t
+  :after lsp-mode
+  )
 
 ;---- buffer-history ----
 (when (locate-library "buffer-history")
