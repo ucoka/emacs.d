@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/29 13:46:56
+; Last Update: 2023/10/31 09:04:55
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -285,14 +285,10 @@
 (setq frame-title-format-orig frame-title-format)
 (setq frame-title-format
   '((:eval
-     (let ((file-name (buffer-file-name))
-           (user (getenv "USER"))
-           (hostname (getenv "HOSTNAME")))
+     (let ((file-name (buffer-file-name)))
        (if file-name
-           (concat (abbreviate-file-name file-name) " - " user "@" hostname)
-         (concat "%b - " user "@" hostname))))))
-; to get the hostname through getenv, the following setting is required in .bashrc
-; export HOSTNAME=$(hostname)
+           (concat (abbreviate-file-name file-name) " - " user-login-name "@" system-name)
+         (concat "%b - " user-login-name "@" system-name))))))
 
 ;;; wdired
 (when (locate-library "wdired")
