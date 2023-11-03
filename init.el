@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/10/31 09:04:55
+; Last Update: 2023/11/03 20:27:35
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
@@ -240,6 +240,12 @@
 ; (include,ifdef etc.)
 (set-face-foreground 'font-lock-builtin-face "magenta")
 (set-face-bold-p 'font-lock-builtin-face t)
+
+(set-face-foreground 'font-lock-negation-char-face "magenta")
+(set-face-foreground 'font-lock-preprocessor-face "magenta")
+(set-face-foreground 'font-lock-comment-delimiter-face "orange")
+(set-face-foreground 'font-lock-doc-face "orange")
+(set-face-foreground 'font-lock-doc-markup-face "orange")
 
 ;(add-hook 'font-lock-mode-hook
 ;	  '(lambda ()
@@ -675,10 +681,15 @@ Activate on all buffers." t)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-blue ((t (:background "blue2" :foreground "deep sky blue"))))
  '(ediff-current-diff-A ((t (:foreground "firebrick" :background "pale green"))))
  '(ediff-current-diff-B ((t (:foreground "DarkOrchid" :background "Yellow"))))
  '(ediff-fine-diff-A ((t (:foreground "Navy" :background "sky blue"))))
- '(ediff-fine-diff-B ((t (:foreground "Black" :background "cyan")))))
+ '(ediff-fine-diff-B ((t (:foreground "Black" :background "cyan"))))
+ '(magit-reflog-checkout ((t (:foreground "green"))))
+ '(transient-blue ((t (:foreground "deep sky blue" :inherit transient-key))))
+ '(which-func ((t (:foreground "Green"))))
+)
 
 
 
