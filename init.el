@@ -1,7 +1,7 @@
 ;;;
 ; init.el
 ;
-; Last Update: 2023/11/03 20:27:35
+;
 ;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
