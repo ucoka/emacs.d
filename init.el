@@ -375,6 +375,7 @@
         '(lambda ()
            (setq gtags-select-buffer-single t)
 ;           (setq gtags-folllows-case-fold-search t)
+           (global-set-key [?\C-,] 'gtags-pop-stack)    ;Return to previous buffer
            ))
 
   (add-hook 'gtags-select-mode-hook
@@ -384,14 +385,14 @@
                ))
 )
 
-;---- gtags_ex ----
-(when (locate-library "gtags_ex")
-  (require 'gtags_ex)
-  (global-set-key "\C-cgu" 'gtags_ex-update)
+;---- gtags-ex ----
+(when (locate-library "gtags-ex")
+  (require 'gtags-ex)
+  (global-set-key "\C-cgu" 'gtags-ex-update)
   (defadvice save-buffer (after after-save-buffer ())
     "after save-buffer process"
     (progn
-      (gtags_ex-update-on-background))
+      (gtags-ex-update-on-background))
     )
   (ad-activate 'save-buffer)
   )
@@ -545,7 +546,6 @@
 		       (concat (format-time-string "%H%M%S" (current-time)) "." (car (split-string (buffer-name) "<")))
 		       my-backup-save-path-day)))
   (save-buffer)
-;  (gtags_ex-update-on-background)
     )
 )
 ;;
@@ -1299,7 +1299,7 @@ Activate on all buffers." t)
   :hook
   (rust-mode . lsp)
   (c-mode . lsp)
-  (c++-mode . lsp)
+;  (c++-mode . lsp)
   (python-mode . lsp)
   (sh-mode . lsp)
   :custom
@@ -1342,7 +1342,7 @@ Activate on all buffers." t)
 ;  (setq lsp-completion-show-detail t)        ; 15. Completion item detail
 ;  (setq lsp-completion-show-kind t)          ; 16. Completion item kind
 
-  (setq lsp-clients-clangd-executable "/snap/bin/clangd")
+;  (setq lsp-clients-clangd-executable "/snap/bin/clangd")
 )
 
 (use-package lsp-java
