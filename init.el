@@ -6,6 +6,17 @@
 ;;;;
 ;;; Code:
 
+;---- package ----
+(when (locate-library "package")
+  (require 'package)
+;   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+;   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+   (setq package-check-signature nil)
+   (package-initialize)
+)
+
 ;---- 0. load-path ----
 (let ((default-directory (expand-file-name "~/.emacs.d/local-lisp")))
   (when (file-exists-p default-directory)
@@ -1056,17 +1067,6 @@ Activate on all buffers." t)
 ;;  (custom-set-variables '(ecb-options-version "2.40"))
 ;  )
 
-;---- package ----
-(when (locate-library "package")
-  (require 'package)
-;   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-;   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-   (setq package-check-signature nil)
-   (package-initialize)
-)
-
 ;---- auto-complete ----
 ;(when (locate-library "auto-complete")
 ;  (require 'auto-complete-config)
@@ -1414,5 +1414,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
