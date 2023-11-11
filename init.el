@@ -688,8 +688,7 @@ Activate on all buffers." t)
  '(ediff-fine-diff-B ((t (:foreground "Black" :background "cyan"))))
  '(magit-reflog-checkout ((t (:foreground "green"))))
  '(transient-blue ((t (:foreground "deep sky blue" :inherit transient-key))))
- '(which-func ((t (:foreground "Green"))))
-)
+ '(which-func ((t (:foreground "Green")))))
 
 
 
@@ -1145,8 +1144,9 @@ Activate on all buffers." t)
   (global-set-key (kbd "C-c y") 'browse-kill-ring)
 )
 
-(when (locate-library "flycheck")
-  (require 'flycheck)
+(use-package flycheck
+  :ensure t
+  :config
   (global-flycheck-mode)
 ;  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 ;  (setq flycheck-idle-change-delay 3)
@@ -1168,11 +1168,6 @@ Activate on all buffers." t)
 ;  (add-hook 'c-mode-common-hook
 ;            '(lambda()
 ;               (flycheck-select-checker 'my-gcc)))
-
-  (when (locate-library "flycheck-pos-tip")
-    (with-eval-after-load 'flycheck
-      (flycheck-pos-tip-mode))
-    )
 
   (when (fboundp 'define-fringe-bitmap)
     (define-fringe-bitmap 'my-flycheck-fringe-indicator
@@ -1234,25 +1229,37 @@ Activate on all buffers." t)
   (set-face-foreground 'flycheck-fringe-info "lightblue")
 )
 
-(when (locate-library "fringe-helper")
-  (require 'fringe-helper)
+(use-package flycheck-pos-tip
+  :ensure t
+  :after flycheck-mode
+  :config
+  (with-eval-after-load 'flycheck
+    (flycheck-pos-tip-mode))
 )
 
-(when (locate-library "git-gutter")
-  (require 'git-gutter)
+(use-package fringe-helper
+  :ensure t
+)
+
+(use-package git-gutter
+  :ensure t
+  :config
   (global-git-gutter-mode t)
 )
-(when (locate-library "git-gutter-fringe")
-  (require 'git-gutter-fringe)
+
+(use-package git-gutter-fringe
+  :ensure t
 )
 
-(when (locate-library "counsel")
-  (require 'counsel)
+(use-package counsel
+  :ensure t
+  :config
   (counsel-mode 1)
 )
 
-(when (locate-library "swiper")
-  (require 'swiper)
+(use-package swiper
+  :ensure t
+  :config
   (global-set-key (kbd "C-c a") 'swiper)
 )
 
@@ -1285,12 +1292,14 @@ Activate on all buffers." t)
   :hook (rust-mode . cargo-minor-mode))
 
 (use-package magit
+  :ensure t
   :config
    (define-key global-map "\M-o" 'magit)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
    )
 
 (use-package forge
+  :ensure t
   :after magit-mode
 )
 
@@ -1346,14 +1355,17 @@ Activate on all buffers." t)
 )
 
 (use-package lsp-java
+  :ensure t
   :after lsp-mode
   )
 
 (use-package lsp-ui
+  :ensure t
   :after lsp-mode
   )
 
 (use-package dap-mode
+  :ensure t
   :after lsp-mode
   :config
   (dap-auto-configure-mode)
@@ -1402,5 +1414,5 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe git-gutter-fringe+ fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize git-gutter+ flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode org2blog modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10))
