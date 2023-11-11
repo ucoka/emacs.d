@@ -445,8 +445,8 @@
 ;;; If you use Cygwin's bash
 (if (featurep 'w32) ; NTEmacs
     (progn
-      (setq explicit-shell-file-name "c:/msys64/usr/bin/bash.exe") ;; For shell mode
-      (setq shell-file-name "c:/msys64/usr/bin/sh.exe") ; for shell commands
+      (setq explicit-shell-file-name "bash.exe") ;; For shell mode
+      (setq shell-file-name "sh.exe") ; for shell commands
       (setq shell-command-switch "-c")
 ))
 ;
