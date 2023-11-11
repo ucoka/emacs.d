@@ -48,9 +48,10 @@
 (save-place-mode 1)
 
 (let ((my-background-color))
-  (if (featurep 'w32) ; NTEmacs
-      (setq my-background-color "dark slate gray")
-    (setq my-background-color "gray15"))
+;  (if (featurep 'w32) ; NTEmacs
+;      (setq my-background-color "dark slate gray")
+;    (setq my-background-color "gray15"))
+  (setq my-background-color "gray15")
 
   (setq default-frame-alist
         (append
@@ -71,7 +72,7 @@
   (if (featurep 'w32) ; NTEmacs
       (cond ((and (>= (x-display-pixel-width) 2560) (>= (x-display-pixel-height) 1440))
              (setq my-width 316)
-             (setq my-height 76))
+             (setq my-height 75))
             ((and (eq (x-display-pixel-width) 1680) (eq (x-display-pixel-height) 1050))
              (setq my-width 205)
              (setq my-height 54))
