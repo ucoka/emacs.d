@@ -579,10 +579,11 @@
   (setq kill-ring (delete (ad-get-arg 0) kill-ring)))
 ;
 ;;browse-kill-ring.el
-(when (locate-library "browse-kill-ring")
-  (require 'browse-kill-ring)
+(use-package browse-kill-ring
+  :ensure t
+  :config
   (global-set-key (kbd "C-c y") 'browse-kill-ring)
-)
+  )
 ;
 (global-set-key "\M-y" 'yank-pop-forward)
 (global-set-key "\C-\M-y" 'yank-pop-backward)
@@ -1083,9 +1084,9 @@ Activate on all buffers." t)
 ;  )
 
 ;---- company ----
-(when (locate-library "company")
-  (require 'company)
-
+(use-package company
+  :ensure t
+  :config
   (global-company-mode t)
   (setq company-transformers '(company-sort-by-backend-importance)) ;; sort order
   (setq company-idle-delay 0) ; Default is 0.5
@@ -1146,12 +1147,6 @@ Activate on all buffers." t)
                   ("\\.puml$" . plantuml-mode)
                   ) auto-mode-alist))
   )
-
-;;browse-kill-ring.el (redefined above but for some reason it is disabled)
-(when (locate-library "browse-kill-ring")
-  (require 'browse-kill-ring)
-  (global-set-key (kbd "C-c y") 'browse-kill-ring)
-)
 
 (use-package flycheck
   :ensure t
