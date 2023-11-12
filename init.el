@@ -459,7 +459,10 @@
     (let ((my-shell-exec-path ""))
       (if (file-exists-p "c:/msys64")
           (setq my-shell-exec-path "c:/msys64")
-          )
+        (if (file-exists-p "c:/usr/git")
+            (setq my-shell-exec-path "c:/usr/git")
+          ))
+
       (progn
         (setq explicit-shell-file-name (concat my-shell-exec-path "/usr/bin/bash.exe")) ;; For shell mode
         (setq shell-file-name (concat my-shell-exec-path "/usr/bin/sh.exe")) ; for shell commands
