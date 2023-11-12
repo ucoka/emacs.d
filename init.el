@@ -108,7 +108,7 @@
 ;
 
 ; ---- 2. Japanese language environment ----
-(set-language-environment "Japanese")
+;(set-language-environment "Japanese")
 
 (unless (featurep 'meadow)
   (set-keyboard-coding-system 'japanese-shift-jis)
@@ -456,11 +456,16 @@
 ;
 ;;; If you use Cygwin's bash
 (if (featurep 'w32) ; NTEmacs
-    (progn
-      (setq explicit-shell-file-name "bash.exe") ;; For shell mode
-      (setq shell-file-name "sh.exe") ; for shell commands
-      (setq shell-command-switch "-c")
-))
+    (let ((my-shell-exec-path ""))
+      (if (file-exists-p "c:/msys64")
+          (setq my-shell-exec-path "c:/msys64")
+          )
+      (progn
+        (setq explicit-shell-file-name (concat my-shell-exec-path "/usr/bin/bash.exe")) ;; For shell mode
+        (setq shell-file-name (concat my-shell-exec-path "/usr/bin/sh.exe")) ; for shell commands
+        (setq shell-command-switch "-c")
+      ))
+)
 ;
 
 ;;; argument-editing configuration
