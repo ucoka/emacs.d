@@ -1310,6 +1310,7 @@ Activate on all buffers." t)
 (use-package lsp-mode
   :ensure t
   :hook
+  (java-mode . lsp)
   (rust-mode . lsp)
   (c-mode . lsp)
 ;  (c++-mode . lsp)
