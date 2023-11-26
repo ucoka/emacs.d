@@ -428,22 +428,34 @@
                 ("\\.cmn$" . c-mode) ; .cmn file : c-mode
                 ) auto-mode-alist))
 ;
+(defun my-gtags-init-on-c-mode ()
+  (progn
+  (c-set-style "k&r") ;style for "Programming Language C (aka K&R)
+  (when (locate-library "gtags")
+    (gtags-mode 1) ;gtags-mode on when c-mode
+    )
+  (hide-ifdef-mode 1) ;in c-mode, hide-ifdef-mode is on
+  (hs-minor-mode 1)
+
+  (setq c-basic-offset 4)
+  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
+
+;  (semantic-mode 1)
+  )
+)
+
 ;
 (add-hook
- 'c-mode-common-hook
+ 'c-mode-hook
  '(lambda()
-    (c-set-style "k&r") ;style for "Programming Language C (aka K&R)
-    (when (locate-library "gtags")
-      (gtags-mode 1) ;gtags-mode on when c-mode
-      )
-    (hide-ifdef-mode 1) ;in c-mode, hide-ifdef-mode is on
-    (hs-minor-mode 1)
-;
-    (setq c-basic-offset 4)
-    (setq tab-width 4)
-    (setq indent-tabs-mode nil)
+    (my-gtags-init-on-c-mode)
+))
 
-;    (semantic-mode 1)
+(add-hook
+ 'c++-mode-hook
+ '(lambda()
+    (my-gtags-init-on-c-mode)
 ))
 ;;;
 
@@ -716,7 +728,7 @@ Activate on all buffers." t)
 ;;
 
 ;;---- grep-find ----
-(setq grep-find-command "/bin/find . -name \"*.c\" -o -name \"*.h\" -o -name \"*.cmn\" -o -name \"*.mar\" -o -name \"*.i\" -o -name \"*.inc\" -o -name \"*.sys\" -o -name \"*.mod\" -o -name \"*.map\" -o -name \"*.conf\" -o -name \"*.src\" -o -name \"*.el\" | xargs grep -n ")
+(setq grep-find-command "/bin/find . -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" | xargs grep -n ")
 ;;
 (global-set-key "\C-cgg" 'grep-find)
 
@@ -1312,7 +1324,7 @@ Activate on all buffers." t)
   :hook
   (java-mode . lsp)
   (rust-mode . lsp)
-  (c-mode . lsp)
+;  (c-mode . lsp)
 ;  (c++-mode . lsp)
   (python-mode . lsp)
   (sh-mode . lsp)
