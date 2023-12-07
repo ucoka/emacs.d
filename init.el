@@ -1403,6 +1403,29 @@ Activate on all buffers." t)
   :after lsp-mode
   )
 
+(if (featurep 'pgtk)
+    ; you need to install "wl-clipboard" first
+    (if (and (zerop (call-process "which" nil nil nil "wl-copy"))
+             (zerop (call-process "which" nil nil nil "wl-paste")))
+        ;; credit: yorickvP on Github
+        (progn
+          (setq wl-copy-process nil)
+          (defun wl-copy (text)
+            (setq wl-copy-process (make-process :name "wl-copy"
+                                                :buffe*r nil
+                                                :command '("wl-copy" "-f" "-n")
+                                                :connection-type 'pipe))
+            (process-send-string wl-copy-process text)
+            (process-send-eof wl-copy-process))
+          (defun wl-paste ()
+            (if (and wl-copy-process (process-live-p wl-copy-process))
+                nil ; should return nil if we're the current paste owner
+              (shell-command-to-string "wl-paste -n | tr -d \r")))
+          (setq interprogram-cut-function 'wl-copy)
+          (setq interprogram-paste-function 'wl-paste)
+          )
+      ))
+
 ;---- buffer-history ----
 (when (locate-library "buffer-history")
   (require 'buffer-history)
@@ -1432,4 +1455,5 @@ Activate on all buffers." t)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
    '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
- '(tramp-connection-timeout 10))
+ '(tramp-connection-timeout 10)
+ '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
