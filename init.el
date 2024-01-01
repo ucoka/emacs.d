@@ -1101,7 +1101,7 @@ Activate on all buffers." t)
   :config
   (global-company-mode t)
   (setq company-transformers '(company-sort-by-backend-importance)) ;; sort order
-  (setq company-idle-delay 0) ; Default is 0.5
+  (setq company-idle-delay nil) ; Default is 0.5
   (setq company-minimum-prefix-length 3) ; Default is 4
   (setq company-selection-wrap-around t) ; Back to the top when going to the below further on the most candidate bottom
   (setq completion-ignore-case t)
