@@ -728,7 +728,7 @@ Activate on all buffers." t)
 ;;
 
 ;;---- grep-find ----
-(setq grep-find-command "/bin/find . -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" | xargs grep -n ")
+(setq grep-find-command "/bin/find . -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" | xargs grep -n ")
 ;;
 (global-set-key "\C-cgg" 'grep-find)
 
@@ -1441,6 +1441,14 @@ Activate on all buffers." t)
   (when (file-exists-p my-private-init-file)
     (load-file my-private-init-file)))
 
+(use-package kubernetes
+  :ensure t
+  )
+
+(use-package docker
+  :ensure t
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
@@ -1454,6 +1462,6 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
+   '(kubernetes forge lsp-ui company lsp-javacomp lsp-java lsp-mode docker counsel-tramp kconfig-mode go-mode modus-themes helm-ag ox-zenn dockerfile-mode markdown-mode yaml-mode plantuml-mode flycheck-plantuml flycheck git-commit git-gutter google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor rust-mode bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline git-gutter-fringe fringe-helper org-plus-contrib org o-blog markdown-mode+ magit js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw browse-kill-ring auto-complete auctex))
  '(tramp-connection-timeout 10)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
