@@ -715,6 +715,7 @@ Activate on all buffers." t)
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-blue ((t (:background "blue2" :foreground "deep sky blue"))))
+ '(ansi-color-yellow ((t (:background "yellow3" :foreground "Yellow"))))
  '(ediff-current-diff-A ((t (:foreground "firebrick" :background "pale green"))))
  '(ediff-current-diff-B ((t (:foreground "DarkOrchid" :background "Yellow"))))
  '(ediff-fine-diff-A ((t (:foreground "Navy" :background "sky blue"))))
@@ -787,17 +788,10 @@ Activate on all buffers." t)
 ;
 ;;
 
-
-;;;;;
-; Start shell. Appending date and time to buffer name at startup allows multiple startups.
-; 11/01/2002 8:11:36 PM
-(defun newshell ()
-  ""
-  (interactive)
-  (shell)
-  (rename-buffer (concat "*shell" (format-time-string "%y%m%d-%H%M%S" (current-time)) "*" ) )
+; To build this, you need to install "cmake" and "libtool-bin" first
+(use-package vterm
+  :ensure t
   )
-;;;
 
 ;; Start/switch shell
 (global-set-key "\C-cs" 'char_select_shell)
@@ -808,22 +802,9 @@ Activate on all buffers." t)
     (setq my-shell-name (concat "*shell(" (char-to-string arg) ")*"))
     (if (eq (get-buffer my-shell-name) nil) ;if shell does not exist, start and name it
     (progn
-      (shell)
-      (rename-buffer my-shell-name)
-      )
-      (switch-to-buffer (get-buffer my-shell-name)) ;if it exists, just switch
-      )
-    )
-  )
-
-(defun char_select_eshell (arg)
-  ""
-  (interactive "c")
-  (let ((my-shell-name))
-    (setq my-shell-name (concat "*eshell(" (char-to-string arg) ")*"))
-    (if (eq (get-buffer my-shell-name) nil) ;if shell does not exist, start and name it
-    (progn
-      (eshell)
+      (if (locate-library "vterm")
+          (vterm)
+        (shell))
       (rename-buffer my-shell-name)
       )
       (switch-to-buffer (get-buffer my-shell-name)) ;if it exists, just switch
