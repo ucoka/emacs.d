@@ -1384,28 +1384,27 @@ Activate on all buffers." t)
   :after lsp-mode
   )
 
+(defvar wl-copy-process nil)
 (if (featurep 'pgtk)
     ; you need to install "wl-clipboard" first
     (if (and (zerop (call-process "which" nil nil nil "wl-copy"))
              (zerop (call-process "which" nil nil nil "wl-paste")))
         ;; credit: yorickvP on Github
-        (let (wl-copy-process)
-          (progn
-            (setq wl-copy-process nil)
-            (defun wl-copy (text)
-              (setq wl-copy-process (make-process :name "wl-copy"
-                                                  :buffe*r nil
-                                                  :command '("wl-copy" "-f" "-n")
-                                                  :connection-type 'pipe))
-              (process-send-string wl-copy-process text)
-              (process-send-eof wl-copy-process))
-            (defun wl-paste ()
-              (if (and wl-copy-process (process-live-p wl-copy-process))
-                  nil ; should return nil if we're the current paste owner
-                (shell-command-to-string "wl-paste -n | tr -d \r")))
-            (setq interprogram-cut-function 'wl-copy)
-            (setq interprogram-paste-function 'wl-paste)
-            )
+        (progn
+          (setq wl-copy-process nil)
+          (defun wl-copy (text)
+            (setq wl-copy-process (make-process :name "wl-copy"
+                                                :buffe*r nil
+                                                :command '("wl-copy" "-f" "-n")
+                                                :connection-type 'pipe))
+            (process-send-string wl-copy-process text)
+            (process-send-eof wl-copy-process))
+          (defun wl-paste ()
+            (if (and wl-copy-process (process-live-p wl-copy-process))
+                nil ; should return nil if we're the current paste owner
+              (shell-command-to-string "wl-paste -n | tr -d \r")))
+          (setq interprogram-cut-function 'wl-copy)
+          (setq interprogram-paste-function 'wl-paste)
           )
       ))
 
