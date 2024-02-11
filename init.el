@@ -267,14 +267,53 @@
 
 
 ;;; Highlight "tabs" and "full-width spaces" and "spaces and tabs before line breaks".
-(defface my-face-b-1 '((t (:background "#375757"))) nil) ; "full-width spaces"
-(defface my-face-b-2 '((t (:background "#375757"))) nil) ; "tabs"
-(defface my-face-u-1 '((t (:foreground "SteelBlue" :underline t))) nil) ; "space or tab before newline"
-
-(defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
+;(defface my-face-b-1 '((t (:background "#375757"))) nil) ; "full-width spaces"
+;(defface my-face-b-2 '((t (:background "#375757"))) nil) ; "tabs"
+;(defface my-face-u-1 '((t (:foreground "SteelBlue" :underline t))) nil) ; "space or tab before newline"
+;
+;(defvar my-face-b-1 'my-face-b-1)
+;(defvar my-face-b-2 'my-face-b-2)
+;(defvar my-face-u-1 'my-face-u-1)
 ;;;;
+; Referring to https://cortyuming.hateblo.jp/entry/2016/07/17/160238
+(use-package whitespace
+  :ensure t
+  :hook
+  (yaml-mode . whitespace-mode)
+  (c-mode . whitespace-mode)
+  (java-mode . whitespace-mode)
+  (emacs-lisp-mode . whitespace-mode)
+  :config
+  (setq whitespace-style
+        '(
+          face ; to be visible by face
+          trailing ; end of line
+          tabs
+          spaces
+          space-mark ; display mapping
+          tab-mark
+          ))
+  (setq whitespace-display-mappings
+        '(
+          (space-mark ?\u3000 [?\u2423])
+          (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])
+          ))
+  (setq whitespace-trailing-regexp  "\\([ \u00A0]+\\)$")
+  (setq whitespace-space-regexp "\\(\u3000+\\)")
+  (set-face-attribute 'whitespace-trailing nil
+                      :foreground "RoyalBlue4"
+                      :background "RoyalBlue4"
+                      :underline nil)
+  (set-face-attribute 'whitespace-tab nil
+                      :foreground "yellow4"
+                      :background "yellow4"
+                      :underline nil)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "gray40"
+                      :background "gray20"
+                      :underline nil)
+;  (global-whitespace-mode t)
+  )
 
 ;;;;; Automatic insertion of last-modified date
 ;;;; If within 8 lines (default, but can be changed) from the beginning of the file, you can write Time-stamp: <> or
