@@ -1492,6 +1492,9 @@ Activate on all buffers." t)
   :ensure t
   )
 
+; for emacsclient
+(unless (server-running-p) (server-start))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
