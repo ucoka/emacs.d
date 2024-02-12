@@ -827,9 +827,11 @@ Activate on all buffers." t)
 ;
 ;;
 
-; To build this, you need to install "cmake" and "libtool-bin" first
-(use-package vterm
-  :ensure t
+(unless (featurep 'w32)
+  ; To build this, you need to install "cmake" and "libtool-bin" first
+  (use-package vterm
+    :ensure t
+    )
   )
 
 ;; Start/switch shell
