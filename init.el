@@ -1495,6 +1495,16 @@ Activate on all buffers." t)
 ; for emacsclient
 (unless (server-running-p) (server-start))
 
+; you need to install "emacs-mozc" first
+(use-package mozc
+  :ensure t
+  :config
+  (setq default-input-method "japanese-mozc")
+  (setq mozc-leim-title "[あ]")
+;  (global-set-key [zenkaku-hankaku] 'toggle-input-method)
+;  (global-set-key (kbd "<zenkaku-hankaku>") 'toggle-input-method)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
