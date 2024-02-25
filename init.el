@@ -1505,6 +1505,16 @@ Activate on all buffers." t)
 ;  (global-set-key (kbd "<zenkaku-hankaku>") 'toggle-input-method)
   )
 
+(use-package ob-mermaid
+  :ensure t
+  :config
+  (setq ob-mermaid-cli-path "/usr/bin/mmdc")
+  )
+
+(use-package mermaid-mode
+  :ensure t
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
