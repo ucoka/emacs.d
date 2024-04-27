@@ -1515,6 +1515,16 @@ Activate on all buffers." t)
   :ensure t
   )
 
+; you need to install "markdown" first
+(use-package markdown-preview-mode
+  :ensure t
+  :config
+;  (add-to-list 'markdown-preview-stylesheets "https://raw.githubusercontent.com/richleland/pygments-css/master/emacs.css")
+  (setq markdown-preview-stylesheets (list "http://thomasf.github.io/solarized-css/solarized-light.min.css"))
+;  (setq markdown-preview-stylesheets (list "https://cdn.jsdelivr.net/npm/github-markdown-css@3.0.1/github-markdown.min.css"))
+  (add-to-list 'markdown-preview-javascript "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML")
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
