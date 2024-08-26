@@ -768,7 +768,7 @@ Activate on all buffers." t)
 ;;
 
 ;;---- grep-find ----
-(setq grep-find-command "/bin/find . -type f \\( -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.yml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" \\) | xargs grep -n ")
+(setq grep-find-command "/bin/find . -type f \\( -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.yml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" -o -name \"*.go\" \\) | xargs grep -n ")
 ;;
 (global-set-key "\C-cgg" 'grep-find)
 
