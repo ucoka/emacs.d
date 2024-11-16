@@ -488,13 +488,13 @@
 (add-hook
  'c-mode-hook
  '(lambda()
-    (my-gtags-init-on-c-mode)
+;    (my-gtags-init-on-c-mode)
 ))
 
 (add-hook
  'c++-mode-hook
  '(lambda()
-    (my-gtags-init-on-c-mode)
+;    (my-gtags-init-on-c-mode)
 ))
 ;;;
 
@@ -1425,6 +1425,14 @@ Activate on all buffers." t)
   :ensure t
   :after lsp-mode
   )
+
+(use-package ccls
+  :ensure t
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
+(setq ccls-executable "~/bin/ccls")
+(setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}"))
 
 (defvar wl-copy-process nil)
 (if (featurep 'pgtk)
