@@ -1174,7 +1174,9 @@ Activate on all buffers." t)
 ;---- plantuml ----
 (when (locate-library "plantuml-mode")
   (require 'plantuml-mode)
-  (setq plantuml-jar-path "C:\\usr\\gnu\\bin\\plantuml.jar")
+  (if (featurep 'w32)
+      (setq plantuml-jar-path "C:\\usr\\gnu\\bin\\plantuml.jar")
+    (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
   (setq plantuml-default-exec-mode 'jar)
   (setq auto-mode-alist
         (append '(
