@@ -1513,6 +1513,8 @@ Activate on all buffers." t)
 
 (use-package markdown-mode
   :ensure t
+  :config
+  (define-key markdown-mode-map (kbd "C-c C-t") nil)
   )
 
 (use-package go-mode
@@ -1568,6 +1570,38 @@ Activate on all buffers." t)
 (use-package org-preview-html
   :ensure t
   )
+
+;---- txl ----
+;(use-package txl
+;  :ensure t
+;  :config
+;  (setq txl-languages '(JA . EN-US))
+;;  (setq txl-deepl-api-key "my-api-key")
+;  (setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
+;  )
+
+;---- go-translate ----
+(use-package go-translate
+  :ensure t
+  :config
+  ;; Initialize the default translator, let it translate between en and ja via Google Translate,
+  (setq gt-langs '(en ja))
+
+  ;; the result will be displayed in the Echo Area.
+;  (setq gt-default-translator (gt-translator :engines (gt-google-engine)))
+
+;  (setq gt-default-translator (gt-translator
+;   :engines (gt-google-engine)
+;   :render (list (gt-posframe-pop-render :if 'word) ; if current translation text is word, render with posframe
+;                 (gt-alert-render :if '(and read-only not-word)) ; if text is not word and buffer is readonly, render with alert
+;                 (gt-buffer-render))))               ; default, render with new buffer
+
+  (setq gt-default-translator (gt-translator
+   :engines (gt-google-engine)
+   :render (list (gt-posframe-pop-render))
+  ))
+  (global-set-key "\C-c\C-t" 'gt-do-translate) ; Instead, disable this key combination in markdown-mode
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
