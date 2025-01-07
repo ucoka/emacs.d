@@ -769,7 +769,7 @@ Activate on all buffers." t)
 ;;
 
 ;;---- grep-find ----
-(setq grep-find-command "/bin/find . -type f \\( -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.yml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" -o -name \"*.go\" \\) | xargs grep -n ")
+(setq grep-find-command "/bin/find . -type f \\( -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.yml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" -o -name \"*.go\" -o -name \"Kconfig*\" -o -name \"*.rs\" \\) | xargs grep -n ")
 ;;
 (global-set-key "\C-cgg" 'grep-find)
 
@@ -1603,6 +1603,16 @@ Activate on all buffers." t)
   (global-set-key "\C-c\C-t" 'gt-do-translate) ; Instead, disable this key combination in markdown-mode
 )
 
+(use-package terraform-mode
+  :ensure t
+  )
+
+(use-package direx
+  :ensure t
+  :config
+  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
@@ -1621,3 +1631,4 @@ Activate on all buffers." t)
    '(gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
+(put 'dired-find-alternate-file 'disabled nil)
