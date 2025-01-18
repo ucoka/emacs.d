@@ -1436,46 +1436,46 @@ Activate on all buffers." t)
 (setq ccls-executable "~/bin/ccls")
 (setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}"))
 
-(if (and (featurep 'pgtk)
-         (getenv "WAYLAND_DISPLAY"))
-    (defvar wl-copy-process nil)
-    ; you need to install "wl-clipboard" first
-    (if (and (zerop (call-process "which" nil nil nil "wl-copy"))
-             (zerop (call-process "which" nil nil nil "wl-paste")))
-        ;; credit: yorickvP on Github
-        (progn
-          (setq wl-copy-process nil)
-          (defun wl-copy (text)
-            (setq wl-copy-process (make-process :name "wl-copy"
-                                                :buffer nil
-                                                :command '("wl-copy" "-f" "-n")
-                                                :connection-type 'pipe))
-            (process-send-string wl-copy-process text)
-            (process-send-eof wl-copy-process))
-          (defun wl-paste ()
-            (if (and wl-copy-process (process-live-p wl-copy-process))
-                nil ; should return nil if we're the current paste owner
-              (with-temp-buffer
-                (unless (zerop (call-process "wl-paste" nil t nil "-n"))
-                  (error "Failed to call wl-paste"))
-                (buffer-substring-no-properties (point-min) (point-max)))))
-          ;; Avoid wl-paste on remote tramp buffers
-          (defun my-tramp-aware-paste-function ()
-            (if (tramp-tramp-file-p default-directory)
-                (let ((local-buffer (get-buffer-create "*local-paste-temp*")))
-                  (with-current-buffer local-buffer
-                    (erase-buffer)
-                    (let ((paste-content (wl-paste)))
-                      (if (not paste-content)
-                          (message "Paste content is nil. Skipping paste operation.")
-                        (insert paste-content) ; Paste on local
-                        (wl-copy (buffer-string))))) ; copy again
-                  ;; Return nil for tramp buffers
-                  nil)
-              (wl-paste))) ; Use wl-paste as-is on local env
-          (setq interprogram-cut-function 'wl-copy)
-          (setq interprogram-paste-function 'my-tramp-aware-paste-function)))
-      (message "wl-copy or wl-paste is not installed. Clipboard integration is disabled."))
+;(if (and (featurep 'pgtk)
+;         (getenv "WAYLAND_DISPLAY"))
+;    (defvar wl-copy-process nil)
+;    ; you need to install "wl-clipboard" first
+;    (if (and (zerop (call-process "which" nil nil nil "wl-copy"))
+;             (zerop (call-process "which" nil nil nil "wl-paste")))
+;        ;; credit: yorickvP on Github
+;        (progn
+;          (setq wl-copy-process nil)
+;          (defun wl-copy (text)
+;            (setq wl-copy-process (make-process :name "wl-copy"
+;                                                :buffer nil
+;                                                :command '("wl-copy" "-f" "-n")
+;                                                :connection-type 'pipe))
+;            (process-send-string wl-copy-process text)
+;            (process-send-eof wl-copy-process))
+;          (defun wl-paste ()
+;            (if (and wl-copy-process (process-live-p wl-copy-process))
+;                nil ; should return nil if we're the current paste owner
+;              (with-temp-buffer
+;                (unless (zerop (call-process "wl-paste" nil t nil "-n"))
+;                  (error "Failed to call wl-paste"))
+;                (buffer-substring-no-properties (point-min) (point-max)))))
+;          ;; Avoid wl-paste on remote tramp buffers
+;          (defun my-tramp-aware-paste-function ()
+;            (if (tramp-tramp-file-p default-directory)
+;                (let ((local-buffer (get-buffer-create "*local-paste-temp*")))
+;                  (with-current-buffer local-buffer
+;                    (erase-buffer)
+;                    (let ((paste-content (wl-paste)))
+;                      (if (not paste-content)
+;                          (message "Paste content is nil. Skipping paste operation.")
+;                        (insert paste-content) ; Paste on local
+;                        (wl-copy (buffer-string))))) ; copy again
+;                  ;; Return nil for tramp buffers
+;                  nil)
+;              (wl-paste))) ; Use wl-paste as-is on local env
+;          (setq interprogram-cut-function 'wl-copy)
+;          (setq interprogram-paste-function 'my-tramp-aware-paste-function)))
+;      (message "wl-copy or wl-paste is not installed. Clipboard integration is disabled."))
 
 ;---- buffer-history ----
 (when (locate-library "buffer-history")
