@@ -1627,6 +1627,8 @@ Activate on all buffers." t)
   (define-key yas-minor-mode-map (kbd "C-c & C-v") nil)
   )
 
+(setq max-lisp-eval-depth 20000)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
