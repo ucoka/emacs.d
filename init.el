@@ -1619,25 +1619,13 @@ Activate on all buffers." t)
 
 (use-package yasnippet
   :ensure t
-  :custom-face
-  (yas-field-highlight-face ((t (:inherit nil))))
-  :bind (:map yas-minor-mode-map
-              ("C-c & C-n" . nil)
-              ("C-c & C-s" . nil)
-              ("C-c & C-v" . nil)
-              ("C-x y n" . yas-new-snippet)
-              ("C-x y i" . yas-insert-snippet)
-              ("C-x y v" . yas-visit-snippet-file)
-              ("C-x y l" . yas-describe-tables)
-              ("C-x y r" . yas-reload-all))
   :init
   (yas-global-mode)
   :config
-  (setq yas-prompt-functions '(yas-ido-prompt))
-  (defun my/yasnippet-fixed-indent ()
-    "Set `yas-indent-line' to `fixed'."
-    (setq-local yas-indent-line 'fixed))
-  (add-hook 'prog-mode-hook #'my/yasnippet-fixed-indent))
+  (define-key yas-minor-mode-map (kbd "C-c & C-s") nil)
+  (define-key yas-minor-mode-map (kbd "C-c & C-n") nil)
+  (define-key yas-minor-mode-map (kbd "C-c & C-v") nil)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
