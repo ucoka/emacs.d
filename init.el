@@ -1613,6 +1613,10 @@ Activate on all buffers." t)
   (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
   )
 
+(use-package adoc-mode
+  :ensure t
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
@@ -1628,7 +1632,7 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
+   '(adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
