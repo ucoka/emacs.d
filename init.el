@@ -1337,6 +1337,13 @@ Activate on all buffers." t)
   :config
    (define-key global-map "\M-o" 'magit)
    (define-key magit-mode-map (kbd "q") (lambda() (interactive) (magit-mode-bury-buffer t)))
+   (defun mu-magit-kill-buffers ()
+     "Restore window configuration and kill all Magit buffers."
+     (interactive)
+     (let ((buffers (magit-mode-get-buffers)))
+       (magit-restore-window-configuration)
+       (mapc #'kill-buffer buffers)))
+   (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
    )
 
 (use-package forge
