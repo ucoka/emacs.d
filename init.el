@@ -771,8 +771,7 @@ Activate on all buffers." t)
 ;;---- grep-find ----
 (setq grep-find-command "/bin/find . -type f \\( -name \"*.c\" -o -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.cpp\" -o -name \"*.java\" -o -name \"*.py\" -o -name \"*.rst\" -o -name \"*.sh\" -o -name \"*.el\" -o -name \"*.yaml\" -o -name \"*.yml\" -o -name \"*.json\" -o -name \"Makefile\" -o -name \"*.mk\" -o -name \"*.js\" -o -name \"*.go\" -o -name \"Kconfig*\" -o -name \"*.rs\" \\) | xargs grep -n ")
 ;;
-(global-set-key "\C-cgg" 'grep-find)
-
+;(global-set-key "\C-cgg" 'grep-find)
 
 ;; Save settings and exit. Load on startup.
 ;(desktop-load-default)
@@ -1360,6 +1359,8 @@ Activate on all buffers." t)
 ;  (c++-mode . lsp)
   (python-mode . lsp)
   (sh-mode . lsp)
+  (js-mode . lsp)
+  (typescript-mode . lsp)
   :custom
   (lsp-rust-server 'rust-analyzer)
   :config
@@ -1634,7 +1635,40 @@ Activate on all buffers." t)
   (define-key yas-minor-mode-map (kbd "C-c & C-v") nil)
   )
 
-(setq max-lisp-eval-depth 20000)
+;(setq max-lisp-eval-depth 20000)
+
+(use-package rg
+  :ensure t
+  :config
+  (rg-enable-default-bindings))
+
+(global-set-key "\C-cgg" 'rg-project)
+
+(cl-defmethod project-root ((project (head repo)))
+  "Return the root directory of the repo project."
+  (cdr project))
+
+(defun my/project-try-repo (dir)
+  "Detect the root of a repo project by locating the .repo directory."
+  (let ((repo-root (locate-dominating-file dir ".repo")))
+    (when repo-root
+      (cons 'repo repo-root))))
+
+(add-hook 'project-find-functions #'my/project-try-repo)
+
+(defun my/project-name ()
+  "Get the name of the current project."
+  (when-let ((project (project-current)))
+    (file-name-nondirectory (directory-file-name (project-root project)))))
+
+(setq-default mode-line-format
+              (append mode-line-format
+                      '((:eval (when (project-current)
+                                 (format " [%s]" (my/project-name)))))))
+
+(use-package find-file-rg
+  :ensure t
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1651,7 +1685,7 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
+   '(find-file-rg rg adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
