@@ -1640,6 +1640,8 @@ Activate on all buffers." t)
 (use-package rg
   :ensure t
   :config
+  (setq rg-keymap-prefix "\C-cgm")
+  (setq rg-command-line-flags '("-s"))
   (rg-enable-default-bindings))
 
 (global-set-key "\C-cgg" 'rg-project)
