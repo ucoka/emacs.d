@@ -1666,11 +1666,46 @@ Activate on all buffers." t)
 (setq-default mode-line-format
               (append mode-line-format
                       '((:eval (when (project-current)
-                                 (format " [%s]" (my/project-name)))))))
+                                 (propertize
+                                  (format " [%s]" (my/project-name))
+                                  'face '(:foreground "cyan" :weight bold)))))))
 
-(use-package find-file-rg
+; (use-package find-file-rg
+;   :ensure t
+;   )
+
+;(use-package find-file-in-project
+;  :ensure t
+;  :config
+;  (setq ffip-use-rust-fd t)) ; use 'sharkdp/fd'
+
+(use-package find-file-in-project
   :ensure t
+  :config
+;  (defun my/ffip-project-root ()
+;    "Return the root directory of the project, preferring .repo but falling back to default methods."
+;    (or (locate-dominating-file default-directory ".repo")
+;        (ffip-get-project-root-directory)))
+
+  (defun my/ffip-project-root ()
+    "Return the root directory of the project, preferring .repo but falling back to default methods."
+    (let ((repo-root (locate-dominating-file default-directory ".repo")))
+      (if repo-root
+          repo-root
+        (let ((original-root-function ffip-project-root-function))
+          (setq ffip-project-root-function nil)
+          (unwind-protect
+              (ffip-get-project-root-directory)
+            (setq ffip-project-root-function original-root-function))))))
+
+  (setq ffip-project-root-function #'my/ffip-project-root)
+  (setq ffip-use-rg t)
+  (setq ffip-rg-options "-s")
+  (add-to-list 'ffip-prune-patterns "*/.repo/*")
+  (add-to-list 'ffip-prune-patterns "*/.git/*")
   )
+
+(global-set-key (kbd "C-c g f") 'find-file-in-project)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1687,7 +1722,7 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(find-file-rg rg adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
+   '(rg adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
