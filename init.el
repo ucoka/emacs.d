@@ -1361,6 +1361,7 @@ Activate on all buffers." t)
   (sh-mode . lsp)
   (js-mode . lsp)
   (typescript-mode . lsp)
+  (go-mode . lsp)
   :custom
   (lsp-rust-server 'rust-analyzer)
   :config
