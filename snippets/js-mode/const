@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: const assignment
+# key: const
+# --
+const ${1:varName} = ${2:initialValue};
+$0

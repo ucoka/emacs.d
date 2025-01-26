@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: printf
+# key: printf
+# --
+printf("${1:format}",${2:value});
+$0
