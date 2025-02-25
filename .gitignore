@@ -5,3 +5,8 @@ local-lisp/
 transient/
 .cache/
 eclipse.jdt.ls/
+url/
+.dap-breakpoints
+.lsp-session-v1
+places
+tramp
