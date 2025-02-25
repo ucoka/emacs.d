@@ -1,10 +1,9 @@
-# emacs.d
-Emacs configuration
+#+TITLE: Emacs configuration
 
-## Installation
+* Installation
 
 To install, clone this repo to `~/.emacs.d`.
 
-```
+#+begin_src bash
 git clone https://github.com/ucoka/emacs.d.git ~/.emacs.d
-```
+#+end_src
