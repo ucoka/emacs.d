@@ -2,7 +2,6 @@
 ; init.el
 ;
 ;
-;; This file is saved as iso-2022-7bit
 ;;;;
 ;;; Code:
 
