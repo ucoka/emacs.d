@@ -1779,7 +1779,17 @@ Activate on all buffers." t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
  '(package-selected-packages
-   '(rg adoc-mode gh lsp-javacomp counsel-tramp modus-themes helm-ag ox-zenn plantuml-mode flycheck-plantuml git-commit google-maps helm helm-core irony magit-popup popup pos-tip powerline rich-minority smart-mode-line swiper with-editor bazel-mode counsel-gtags counsel flx swiper-helm flycheck-pos-tip smart-mode-line-powerline-theme spaceline fringe-helper org-plus-contrib org o-blog markdown-mode+ js-doc irony-eldoc htmlize flycheck-irony cp5022x color-identifiers-mode calfw auto-complete auctex))
+   '(adoc-mode auctex auto-complete bazel-mode calfw
+               color-identifiers-mode counsel counsel-gtags
+               counsel-tramp cp5022x dap-mode f flx flycheck-irony
+               flycheck-plantuml flycheck-pos-tip fringe-helper gh
+               git-commit google-maps helm helm-ag helm-core htmlize
+               irony irony-eldoc js-doc lsp-java lsp-javacomp
+               magit-popup markdown-mode+ modus-themes o-blog org
+               org-plus-contrib ox-zenn plantuml-mode popup pos-tip
+               powerline rg rich-minority smart-mode-line
+               smart-mode-line-powerline-theme spaceline swiper
+               swiper-helm treemacs with-editor))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
