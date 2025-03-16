@@ -1615,10 +1615,22 @@ Activate on all buffers." t)
   :ensure t
   )
 
-(use-package direx
+(use-package treemacs
   :ensure t
+  :bind
+  ("M-0" . treemacs))
+
+(use-package projectile
+  :ensure t
+  )
+
+(use-package treemacs-projectile
+  :ensure t
+  :after treemacs projectile
   :config
-  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+  (treemacs-project-follow-mode)
+  (setq treemacs--project-follow-delay 0.1)
+  (setq treemacs-file-follow-delay 0.1)
   )
 
 (use-package adoc-mode
