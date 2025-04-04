@@ -7,3 +7,39 @@ To install, clone this repo to `~/.emacs.d`.
 #+begin_src bash
 git clone https://github.com/ucoka/emacs.d.git ~/.emacs.d
 #+end_src
+
+* Dependencies
+
+** Node.js
+
+(for example)
+
+#+begin_src bash
+curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo apt install nodejs
+#+end_src
+
+** Vterm
+
+#+begin_src bash
+sudo apt install cmake libtool-bin
+#+end_src
+
+** emacs-mozc
+
+#+begin_src bash
+sudo apt install emacs-mozc
+#+end_src
+
+** wl-clipboard (for pgtk only)
+
+#+begin_src bash
+sudo apt install wl-clipboard
+#+end_src
+
+** markdown
+
+#+begin_src bash
+sudo apt install markdown
+#+end_src
