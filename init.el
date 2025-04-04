@@ -1527,6 +1527,27 @@ Activate on all buffers." t)
           (setq interprogram-paste-function 'my-tramp-aware-paste-function)))
       (message "wl-copy or wl-paste is not installed. Clipboard integration is disabled."))
 
+;(defun wsl-copy-to-clipboard (text &optional push)
+;  ""
+;  (let ((process-connection-type nil))
+;    (let ((proc (start-process "clip.exe" "*Messages*" "/mnt/c/Windows/System32/clip.exe")))
+;      (process-send-string proc text)
+;      (process-send-eof proc))))
+;
+;(setq interprogram-cut-function 'wsl-copy-to-clipboard)
+;
+;(defun wsl-paste-from-clipboard ()
+;  ""
+;  (let* ((raw (shell-command-to-string
+;               "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command Get-Clipboard"))
+;         (decoded (if (and raw (> (length raw) 0))
+;                      (decode-coding-string raw 'cp932)
+;                    "")))
+;    decoded))
+;
+;(setq interprogram-paste-function 'wsl-paste-from-clipboard)
+
+
 ;---- buffer-history ----
 (when (locate-library "buffer-history")
   (require 'buffer-history)
@@ -1778,18 +1799,7 @@ Activate on all buffers." t)
  '(org-id-link-to-org-use-id t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
- '(package-selected-packages
-   '(adoc-mode auctex auto-complete bazel-mode calfw
-               color-identifiers-mode counsel counsel-gtags
-               counsel-tramp cp5022x dap-mode f flx flycheck-irony
-               flycheck-plantuml flycheck-pos-tip fringe-helper gh
-               git-commit google-maps helm helm-ag helm-core htmlize
-               irony irony-eldoc js-doc lsp-java lsp-javacomp
-               magit-popup markdown-mode+ modus-themes o-blog org
-               org-plus-contrib ox-zenn plantuml-mode popup pos-tip
-               powerline rg rich-minority smart-mode-line
-               smart-mode-line-powerline-theme spaceline swiper
-               swiper-helm treemacs with-editor))
+ '(package-selected-packages nil)
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
