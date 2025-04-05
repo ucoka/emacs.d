@@ -1508,7 +1508,8 @@ Activate on all buffers." t)
               (with-temp-buffer
                 (unless (zerop (call-process "wl-paste" nil t nil "-n"))
                   (error "Failed to call wl-paste"))
-                (buffer-substring-no-properties (point-min) (point-max)))))
+                (let ((result (buffer-substring-no-properties (point-min) (point-max))))
+                  (replace-regexp-in-string "\r" "" result)))))
           ;; Avoid wl-paste on remote tramp buffers
           (defun my-tramp-aware-paste-function ()
             (if (tramp-tramp-file-p default-directory)
