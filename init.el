@@ -1597,16 +1597,35 @@ Activate on all buffers." t)
 ; for emacsclient
 (unless (server-running-p) (server-start))
 
-; you need to install "emacs-mozc" first
-(use-package mozc
-  :ensure t
-  :config
-  (setq default-input-method "japanese-mozc")
-  (setq mozc-leim-title "[あ]")
-;  (global-set-key [zenkaku-hankaku] 'toggle-input-method)
-;  (global-set-key (kbd "<zenkaku-hankaku>") 'toggle-input-method)
-  )
+;;---- mozc.el ----
+;; you need to install "emacs-mozc" first
+;(use-package mozc
+;  :ensure t
+;  :config
+;  (setq default-input-method "japanese-mozc")
+;  (setq mozc-leim-title "[あ]")
+;;  (global-set-key [zenkaku-hankaku] 'toggle-input-method)
+;;  (global-set-key (kbd "<zenkaku-hankaku>") 'toggle-input-method)
+;  )
 
+;;---- fcitx5 ----
+; you need to install "fcitx5-mozc" first
+(defun my-fcitx5-set-english ()
+  "Switch fcitx5 to English mode (input off) at Emacs startup."
+  (shell-command "fcitx5-remote -o"))
+(add-hook 'after-init-hook #'my-fcitx5-set-english)
+
+(defun my-fcitx5-indicator ()
+  "Function to return a string indicating the status of fcitx5."
+  (let ((state (string-trim (shell-command-to-string "fcitx5-remote"))))
+    (if (string= state "2")
+        "[A]"
+      "[あ]")))
+
+(setq-default mode-line-format
+              (cons '(:eval (my-fcitx5-indicator)) mode-line-format))
+
+;;---- mermaid ----
 (use-package ob-mermaid
   :ensure t
   :config
@@ -1800,7 +1819,20 @@ Activate on all buffers." t)
  '(org-id-link-to-org-use-id t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(adoc-mode auctex auto-complete browse-kill-ring calfw cargo ccls
+               color-identifiers-mode company counsel-gtags
+               counsel-tramp cp5022x direx docker dockerfile-mode ecb
+               emojify fcitx find-file-in-project find-file-rg flx
+               flycheck-irony flycheck-plantuml flycheck-pos-tip forge
+               gh git-gutter-fringe git-gutter-fringe+ go-mode
+               go-translate google-maps helm-ag irony-eldoc js-doc
+               kconfig-mode kubernetes lsp-java lsp-pyright lsp-ui
+               markdown-preview-mode mermaid-mode modus-themes mozc
+               ob-mermaid org-preview-html org2blog ox-zenn repo rg
+               rust-mode smart-mode-line-powerline-theme spaceline
+               swiper-helm terraform-mode treemacs-projectile vterm
+               yaml-mode yasnippet))
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
