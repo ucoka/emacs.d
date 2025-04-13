@@ -1617,10 +1617,11 @@ Activate on all buffers." t)
 
 (defun my-fcitx5-indicator ()
   "Function to return a string indicating the status of fcitx5."
-  (let ((state (string-trim (shell-command-to-string "fcitx5-remote"))))
+  (unless (file-remote-p default-directory)
+    (let ((state (string-trim (shell-command-to-string "fcitx5-remote"))))
     (if (string= state "2")
         "[A]"
-      "[あ]")))
+      "[あ]"))))
 
 (setq-default mode-line-format
               (cons '(:eval (my-fcitx5-indicator)) mode-line-format))
