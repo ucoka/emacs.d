@@ -1,0 +1,3 @@
+[submodule "external/zenn-cli"]
+	path = external/zenn-cli
+	url = https://github.com/wurly200a/zenn-cli.el.git
