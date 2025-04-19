@@ -17,11 +17,13 @@
 )
 
 ;---- 0. load-path ----
-(let ((default-directory (expand-file-name "~/.emacs.d/local-lisp")))
-  (when (file-exists-p default-directory)
-    (add-to-list 'load-path default-directory)
-    (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-	(normal-top-level-add-subdirs-to-load-path))))
+(dolist (subdir '("local-lisp" "external"))
+  (let ((dir (expand-file-name subdir user-emacs-directory)))
+    (when (file-directory-p dir)
+      (add-to-list 'load-path dir)
+      (let ((default-directory dir))
+        (when (fboundp 'normal-top-level-add-subdirs-to-load-path)
+          (normal-top-level-add-subdirs-to-load-path))))))
 
 (add-to-list 'load-path "~/.emacs.private.d")
 
