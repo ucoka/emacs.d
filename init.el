@@ -1739,6 +1739,8 @@ Activate on all buffers." t)
   :config
   (setq rg-keymap-prefix "\C-cgm")
   (setq rg-ignore-case nil)
+  (with-eval-after-load 'rg
+    (rg-define-toggle "--glob=!**/*test*" "X" t))
   (rg-enable-default-bindings))
 
 (global-set-key "\C-cgg" 'rg-project)
