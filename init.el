@@ -1705,7 +1705,19 @@ Activate on all buffers." t)
 (use-package treemacs
   :ensure t
   :bind
-  ("M-0" . treemacs))
+  ("M-0" . treemacs)
+  :config
+  (setq treemacs-width 40
+        treemacs-width-is-initially-locked nil
+        treemacs--width-is-locked nil)
+  )
+
+(use-package lsp-treemacs
+  :after (lsp-mode treemacs)
+  :ensure t
+  :bind
+  ("C-c l t" . lsp-treemacs-symbols))
+(add-hook 'c-mode-hook #'lsp)
 
 (use-package projectile
   :ensure t
