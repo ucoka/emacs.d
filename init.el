@@ -1777,13 +1777,16 @@ Activate on all buffers." t)
     (file-name-nondirectory (directory-file-name (project-root project)))))
 
 (setq-default mode-line-format
-              (let ((insert-pos 5))
-                (append (cl-subseq mode-line-format 0 insert-pos)
-                        '((:eval (when (project-current)
-                                   (propertize
-                                    (format " [%s]" (my/project-name))
-                                    'face '(:foreground "cyan" :weight bold)))))
-                        (nthcdr insert-pos mode-line-format))))
+  (let ((insert-pos 5))
+    (append
+     (cl-subseq mode-line-format 0 insert-pos)
+     `((:eval
+        (when (and (not (file-remote-p default-directory))
+                   (project-current))
+          (propertize
+           (format " [%s]" (my/project-name))
+           'face '(:foreground "cyan" :weight bold)))))
+     (nthcdr insert-pos mode-line-format))))
 
 ; (use-package find-file-rg
 ;   :ensure t
