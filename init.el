@@ -670,7 +670,8 @@
 (setq kill-whole-line t) ;kill-line(C-k) to include newlines at the end of a line
 (setq visible-bell t) ;Flash the screen instead of sounding (visible bell)
 (setq-default auto-save-interval 1000) ;Number of keyboard input characters between auto-saves (default:300)
-(setq truncate-partial-width-windows nil) ;Wrap off-screen text when splitting window
+(setq-default truncate-lines t)
+(setq-default truncate-partial-width-windows nil) ;Wrap off-screen text when splitting window
 
 ; display part of the path of the open file to distinguish between buffers with the same name
 (require 'uniquify)
