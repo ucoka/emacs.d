@@ -1847,6 +1847,15 @@ Activate on all buffers." t)
   ;; Turn on automatic cleaning of useless buffers
   (clean-buffers-turn-on-auto-clean-buffers))
 
+; you have to run M-x copilot-install-server before using
+(use-package copilot
+  :ensure t
+)
+
+(use-package copilot-chat
+  :ensure t
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
