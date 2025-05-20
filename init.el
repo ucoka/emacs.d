@@ -1826,6 +1826,27 @@ Activate on all buffers." t)
 
 (global-set-key (kbd "C-c g f") 'find-file-in-project)
 
+;; --- clean-buffers for Magit buffers ---
+(use-package clean-buffers
+  :ensure t
+  :custom
+  (clean-buffers-useful-buffer-names
+   '("^\\*scratch\\*$"
+     "*Tree*"))
+  ;; List of Magit-related buffer name patterns to clean
+  (clean-buffers-useless-buffer-names
+   '("^magit\\(?:-.*\\)?$"   ; *magit*, *magit-status*, etc.
+     "^magit-diff\\(?:-.*\\)?$"          ; *magit-diff*
+     "^magit-log\\(?:-.*\\)?$"           ; *magit-log*
+     "^magit-process\\(?:-.*\\)?$"))     ; *magit-process*
+  ;; Time in seconds before an unused buffer is considered old (10 minutes)
+  (clean-buffers-useless-buffer-time-out (* 10 60))
+  ;; Interval in seconds between automatic clean checks (1 minute)
+  (clean-buffers-auto-clean-interval 60)
+  :config
+  ;; Turn on automatic cleaning of useless buffers
+  (clean-buffers-turn-on-auto-clean-buffers))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
