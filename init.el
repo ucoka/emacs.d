@@ -1755,7 +1755,7 @@ Activate on all buffers." t)
   (setq rg-keymap-prefix "\C-cgm")
   (setq rg-ignore-case nil)
   (with-eval-after-load 'rg
-    (rg-define-toggle "--glob=!**/*test*" "X" t))
+    (rg-define-toggle "--glob=!**/*test* --glob=!**/sample/**" "X" t))
   (rg-enable-default-bindings))
 
 (global-set-key "\C-cgg" 'rg-project)
