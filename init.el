@@ -33,6 +33,16 @@
     (add-to-list 'load-path "/usr/share/emacs/site-lisp/global")
     )
 
+;---- 0. checking environment ----
+(defun raspberry-pi-p ()
+  ""
+  (and (eq system-type 'gnu/linux)
+       (file-readable-p "/proc/device-tree/model")
+       (with-temp-buffer
+         (insert-file-contents "/proc/device-tree/model")
+         (goto-char (point-min))
+         (search-forward "Raspberry Pi" nil t))))
+
 ; ---- 1. startup frame, mode line ----
 
 ;; frame-setup
@@ -1855,6 +1865,22 @@ Activate on all buffers." t)
 (use-package copilot-chat
   :ensure t
 )
+
+(when (raspberry-pi-p)
+  (setq gnutls-algorithm-priority "NORMAL-VERS-TLS1.3")
+
+  (when (display-graphic-p)
+    (start-process "xkb" nil
+                   "setxkbmap" "-model" "pc105"   "-layout" "jp"
+                   "-option" "custom:henkan_ctrl,custom:muhenkan_ctrl"))
+
+  ;; — turn Henkan/Muhenkan (and their repeats) into Control modifiers,
+  ;;   but swallow the pure repeat events so they’re never dispatched —
+  (define-key key-translation-map (kbd "<henkan>")     'event-apply-control-modifier)
+  (define-key key-translation-map (kbd "C-<henkan>")   #'ignore)
+  (define-key key-translation-map (kbd "<muhenkan>")   'event-apply-control-modifier)
+  (define-key key-translation-map (kbd "C-<muhenkan>") #'ignore)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
