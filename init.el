@@ -1882,6 +1882,10 @@ Activate on all buffers." t)
   (define-key key-translation-map (kbd "C-<muhenkan>") #'ignore)
   )
 
+(use-package meson-mode
+  :ensure t
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; disable everything if there is a mistake in this file
@@ -1896,20 +1900,7 @@ Activate on all buffers." t)
  '(org-id-link-to-org-use-id t)
  '(org-publish-use-timestamps-flag nil)
  '(org2blog/wp-show-post-in-browser 'show)
- '(package-selected-packages
-   '(adoc-mode auctex auto-complete browse-kill-ring calfw cargo ccls
-               color-identifiers-mode company counsel-gtags
-               counsel-tramp cp5022x direx docker dockerfile-mode ecb
-               emojify fcitx find-file-in-project find-file-rg flx
-               flycheck-irony flycheck-plantuml flycheck-pos-tip forge
-               gh git-gutter-fringe git-gutter-fringe+ go-mode
-               go-translate google-maps helm-ag irony-eldoc js-doc
-               kconfig-mode kubernetes lsp-java lsp-pyright lsp-ui
-               markdown-preview-mode mermaid-mode modus-themes mozc
-               ob-mermaid org-preview-html org2blog ox-zenn repo rg
-               rust-mode smart-mode-line-powerline-theme spaceline
-               swiper-helm terraform-mode treemacs-projectile vterm
-               yaml-mode yasnippet))
+ '(package-selected-packages nil)
  '(vterm-max-scrollback 100000)
  '(zenn-cli-default-directory "~/project_doc/wurly-zenn-contents/"))
 (put 'dired-find-alternate-file 'disabled nil)
