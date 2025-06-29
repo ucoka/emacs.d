@@ -1864,6 +1864,9 @@ Activate on all buffers." t)
 
 (use-package copilot-chat
   :ensure t
+  :config
+  (global-set-key "\M-c" 'copilot-chat-transient)
+  (global-set-key "\M-C" 'copilot-mode)
 )
 
 (when (raspberry-pi-p)
