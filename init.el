@@ -1434,6 +1434,7 @@ Activate on all buffers." t)
   (global-set-key "\C-cld" 'lsp-find-definition        )
   (global-set-key "\C-clr" 'lsp-find-references        )
   (global-set-key "\C-clh" 'lsp-describe-thing-at-point)
+  (global-set-key "\C-cls" 'lsp-workspace-restart)
 
 ;  (setq lsp-enable-symbol-highlighting t)    ; 1. Symbol highlighting
 ;  (setq lsp-ui-doc-enable t)                 ; 2. lsp-ui-doc - on hover dialogs. * disable via
