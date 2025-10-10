@@ -1410,8 +1410,8 @@ Activate on all buffers." t)
   :hook
   (java-mode . lsp)
   (rust-mode . lsp)
-;  (c-mode . lsp)
-;  (c++-mode . lsp)
+  (c-mode . lsp-deferred)
+  (c++-mode . lsp-deferred)
   (python-mode . lsp)
   (sh-mode . lsp)
   (js-mode . lsp)
@@ -1459,7 +1459,24 @@ Activate on all buffers." t)
 ;  (setq lsp-completion-show-kind t)          ; 16. Completion item kind
 
 ;  (setq lsp-clients-clangd-executable "/snap/bin/clangd")
+;  (with-eval-after-load 'lsp-mode
+;    (require 'lsp-clangd))
 )
+
+(use-package lsp-docker
+  :ensure t
+  :after lsp-mode
+  :demand t)
+
+;(setq lsp-clients-clangd-executable "clangd")
+;(setq lsp-clients-clangd-args '("--background-index" "--header-insertion-decorators=0"))
+
+;(setq lsp-clients-clangd-executable "")
+;(setq lsp-clients-clangd-args '(""))
+
+;(add-hook 'lsp-mode-hook #'lsp-docker-start)
+;(setq lsp-disabled-clients '(clangd))
+;(setq lsp-disabled-clients '(clangd semgrep-ls))
 
 (use-package lsp-java
   :ensure t
@@ -1493,13 +1510,13 @@ Activate on all buffers." t)
   :after lsp-mode
   )
 
-(use-package ccls
-  :ensure t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-
-(setq ccls-executable "~/bin/ccls")
-(setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}"))
+;(use-package ccls
+;  :ensure t
+;  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+;         (lambda () (require 'ccls) (lsp))))
+;
+;(setq ccls-executable "~/bin/ccls")
+;(setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}"))
 
 (defvar wl-copy-process nil) ; This variable must be outside the following block.
 (if (featurep 'pgtk)
@@ -1878,8 +1895,8 @@ Activate on all buffers." t)
                    "setxkbmap" "-model" "pc105"   "-layout" "jp"
                    "-option" "custom:henkan_ctrl,custom:muhenkan_ctrl"))
 
-  ;; — turn Henkan/Muhenkan (and their repeats) into Control modifiers,
-  ;;   but swallow the pure repeat events so they’re never dispatched —
+  ;;   turn Henkan/Muhenkan (and their repeats) into Control modifiers,
+  ;;   but swallow the pure repeat events so they're never dispatched
   (define-key key-translation-map (kbd "<henkan>")     'event-apply-control-modifier)
   (define-key key-translation-map (kbd "C-<henkan>")   #'ignore)
   (define-key key-translation-map (kbd "<muhenkan>")   'event-apply-control-modifier)
