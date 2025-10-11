@@ -1468,6 +1468,9 @@ Activate on all buffers." t)
   :after lsp-mode
   :demand t)
 
+;(setq lsp-clients-clangd-executable "/home/wurly/project/esp32/ESP32-S3-Touch-LCD-2_8/scripts/clangd-docker.sh") ; tentative
+;(setq lsp-clients-clangd-args '(""))
+
 ;(setq lsp-clients-clangd-executable "clangd")
 ;(setq lsp-clients-clangd-args '("--background-index" "--header-insertion-decorators=0"))
 
