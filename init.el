@@ -1407,11 +1407,12 @@ Activate on all buffers." t)
 
 (use-package lsp-mode
   :ensure t
+  :demand t
   :hook
   (java-mode . lsp)
   (rust-mode . lsp)
-  (c-mode . lsp-deferred)
-  (c++-mode . lsp-deferred)
+  (c-mode . lsp)
+  (c++-mode . lsp)
   (python-mode . lsp)
   (sh-mode . lsp)
   (js-mode . lsp)
@@ -1463,13 +1464,23 @@ Activate on all buffers." t)
 ;    (require 'lsp-clangd))
 )
 
+(with-eval-after-load 'lsp-mode
+  (unless (gethash 'clangd lsp-clients)
+    (lsp-register-client
+     (make-lsp-client
+      :new-connection (lsp-stdio-connection '("clangd"))
+      :major-modes '(c-mode c++-mode objc-mode cuda-mode
+                            c-ts-mode c++-ts-mode)
+      :server-id 'clangd))))
+
 (use-package lsp-docker
   :ensure t
   :after lsp-mode
-  :demand t)
-
-;(setq lsp-clients-clangd-executable "/home/wurly/project/esp32/ESP32-S3-Touch-LCD-2_8/scripts/clangd-docker.sh") ; tentative
-;(setq lsp-clients-clangd-args '(""))
+  :config
+  (defun my/lsp-docker-start-if-project ()
+    (when (and (fboundp 'lsp-workspace-root) (lsp-workspace-root))
+      (lsp-docker-start)))
+  (add-hook 'c-mode-common-hook #'my/lsp-docker-start-if-project))
 
 ;(setq lsp-clients-clangd-executable "clangd")
 ;(setq lsp-clients-clangd-args '("--background-index" "--header-insertion-decorators=0"))
