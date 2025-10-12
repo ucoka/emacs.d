@@ -1087,6 +1087,7 @@ Activate on all buffers." t)
 )
 
 ;---- org-mode ----
+(setq org-startup-with-inline-images t)
 (let ((my-org-mode-init-file "~/.emacs.private.d/init-org.el"))
   (when (file-exists-p my-org-mode-init-file)
     (load-file my-org-mode-init-file)))
@@ -1806,7 +1807,8 @@ Activate on all buffers." t)
   (setq rg-keymap-prefix "\C-cgm")
   (setq rg-ignore-case nil)
   (with-eval-after-load 'rg
-    (rg-define-toggle "--glob=!**/*test* --glob=!**/sample/**" "X" t))
+    (rg-define-toggle "--glob=!**/*test* --glob=!**/sample/**" "X" nil)
+    (rg-define-toggle "--hidden" "H" t))
   (rg-enable-default-bindings))
 
 (global-set-key "\C-cgg" 'rg-project)
