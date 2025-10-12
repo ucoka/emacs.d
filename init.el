@@ -1984,6 +1984,33 @@ Activate on all buffers." t)
   :ensure t
 )
 
+(use-package gptel
+  :ensure t
+  :pin melpa
+  :bind (
+         ("\C-cgd" . gptel)
+         ("\C-cga" . gptel-add)
+         ("\C-cgs" . gptel-send)
+         ("\C-cgm" . gptel-menu)
+         ("\C-cgr" . gptel-rewrite)
+         )
+  :config
+;  (setq gptel-api-key (getenv "OPENAI_API_KEY"))
+;  (setq gptel-model 'gpt-4.1-mini)
+  (gptel-make-gh-copilot "Copilot")
+  (setq gptel-model 'claude-3.7-sonnet-thought
+        gptel-backend (gptel-make-gh-copilot "Copilot"))
+
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-directives
+        '(
+          (default . "あなたはEmacs上で動作するアシスタントです。日本語で簡潔に応答してください。")
+          (programming . "コードのみを出力し、追加のテキスト、プロンプト、説明は一切行わないでください。コードブロックは必要ありません。")
+          (writing . "与えられたテキストを読みやすく、誤りのない文章に校正してください。必要に応じて適切に改行を入れてください。")
+          ))
+  (setq gptel--system-message "あなたはEmacs上で動作するアシスタントです。日本語で簡潔に応答してください。")
+  )
+
 ;; iimage
 (use-package iimage
   :ensure t
