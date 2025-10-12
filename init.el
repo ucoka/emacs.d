@@ -1787,6 +1787,54 @@ Activate on all buffers." t)
 
 (use-package adoc-mode
   :ensure t
+  :config
+  (require 'hi-lock)
+  (defface adoc-acc-yellow     '((t :foreground "yellow"))       "")
+  (defface adoc-acc-lime       '((t :foreground "YellowGreen"))   "")
+  (defface adoc-acc-orange     '((t :foreground "orange"))        "")
+  (defface adoc-acc-magenta    '((t :foreground "magenta"))       "")
+
+  (defvar-local adoc-acc--patterns nil)
+
+  (defun adoc-acc--apply ()
+    ""
+    (hi-lock-mode 1)
+    (let ((rules
+           ;; (REGEXP FACE SUBEXP)
+           '(("\\bhttps?://[^][[:space:])>}\"]+"                     adoc-acc-lime    0)
+             ("\\(\\[#[^]]+\\]\\)"                                   adoc-acc-cyan    1)
+             ("\\(\\[.*width=\\)\\(\"[^\"]*\"\\)"                    adoc-acc-lightyellow 2)
+             ("\\(\\[.*cols=\\)\\(\"[^\"]*\"\\)"                     adoc-acc-lightyellow 2)
+             ("\\(\\[.*options=\\)\\(\"[^\"]*\"\\)"                  adoc-acc-lightyellow 2)
+             ("\\(\\[.*width\\|cols\\|options\\)\\(=\\)"             adoc-acc-lightgreen 1)
+             ("\\_<image:\\{1,2\\}\\>"                               adoc-acc-yellow  0)
+             ("\\_<image:\\{1,2\\}[[:space:]]*\\([^ \t\[]+\\)"       adoc-acc-yellow  1)
+             ("^\\(=+\\)\\s-.*$"                                     adoc-acc-yellow  1)
+             ("^\\(<<<\\)\\s-*$"                                     adoc-acc-yellow  1)
+             ("^\\(:[^[:space:]\n:]+:\\)"                            adoc-acc-orange  1)
+             ("^:[^:\n]+:\\s-*\\(.*\\S.*\\)\\s-*$"                   adoc-acc-magenta 1)
+             ("\\(\\[\\|,\\)\\s*\\(\\_<[[:alpha:]_][[:alnum:]_:-]*\\_>\\)\\s*=" adoc-acc-lime 2)
+             ("\\(\\[\\|,\\)\\s*[[:alpha:]_][[:alnum:]_:-]*\\s*=\\s*\\(\"[^\"]*\"\\)" adoc-acc-lime 2)
+             ("\\(\\[\\|,\\)\\s*[[:alpha:]_][[:alnum:]_:-]*\\s*=\\s*\\([0-9]+%\\)"    adoc-acc-lime 2)
+             ("\\(\\[\\|,\\)\\s*[[:alpha:]_][[:alnum:]_:-]*\\s*=\\s*\\(\\_<[[:alpha:]_][[:alnum:]_:-]*\\_>\\)" adoc-acc-lime 2) ; center 等
+             )))
+      (dolist (p adoc-acc--patterns)
+        (ignore-errors (unhighlight-regexp (car p))))
+      (setq adoc-acc--patterns nil)
+      (dolist (r rules)
+        (let ((rx (nth 0 r)) (face (nth 1 r)) (sub (nth 2 r)))
+          (highlight-regexp rx face sub)
+          (push r adoc-acc--patterns)))))
+
+  (define-minor-mode adoc-accents-mode
+    ""
+    :init-value t :lighter " ADoc+"
+    (if adoc-accents-mode
+        (adoc-acc--apply)
+      (dolist (p adoc-acc--patterns)
+        (ignore-errors (unhighlight-regexp (car p))))
+      (setq adoc-acc--patterns nil)))
+  (add-hook 'adoc-mode-hook #'adoc-accents-mode)
   )
 
 (use-package yasnippet
@@ -1935,6 +1983,36 @@ Activate on all buffers." t)
 (use-package cmake-mode
   :ensure t
 )
+
+;; iimage
+(use-package iimage
+  :ensure t
+  :config
+  (autoload 'iimage-mode "iimage" "Inlined images" t)
+
+  (setq iimage-mode-image-regex-alist nil)  ;;
+
+  (add-to-list 'iimage-mode-image-regex-alist
+               (cons "image::\\([^][[:space:]]+\\)\\(\\[.*\\]\\)?" 1))
+
+  (add-to-list 'iimage-mode-image-regex-alist
+               (cons "\\(\\[\\[\\|<\\)\\(\\([^]>]+\\)\\(.png\\|.jp[e]?g\\)\\)\\(\\]\\]\\|>\\)" 2))
+
+  (add-to-list 'iimage-mode-image-regex-alist
+               (cons "!\\[\\(.*?\\)\\](\\([^)]+\\))" 2))
+
+  (add-hook 'adoc-mode-hook 'iimage-mode)
+  (add-hook 'markdown-mode-hook 'iimage-mode)
+)
+
+(defun refresh-iimages ()
+  "Refresh inline images in current buffer."
+  (interactive)
+  (when iimage-mode
+    (turn-off-iimage-mode)
+    (turn-on-iimage-mode)))
+
+;(global-set-key (kbd "C-c C-r") 'refresh-iimages)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
