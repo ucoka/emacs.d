@@ -1107,6 +1107,15 @@ Activate on all buffers." t)
 ;;  (setq tramp-use-ssh-controlmaster-options nil)
 ;)
 
+(dolist (rx-mode '(("/docker:.*\\.c\\'"   . c-mode)
+                   ("/docker:.*\\.h\\'"   . c-mode)
+                   ("/docker:.*\\.cc\\'"  . c++-mode)
+                   ("/docker:.*\\.cxx\\'" . c++-mode)
+                   ("/docker:.*\\.cpp\\'" . c++-mode)
+                   ("/docker:.*\\.hpp\\'" . c++-mode)
+                   ("/docker:.*\\.hh\\'"  . c++-mode)))
+  (add-to-list 'auto-mode-alist rx-mode))
+
 (defun explorer-current-directory ()
   "explorer current diretory"
   (interactive)
