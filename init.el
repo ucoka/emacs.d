@@ -1625,6 +1625,52 @@ Activate on all buffers." t)
 
 (use-package docker
   :ensure t
+  :config
+  (global-set-key "\M-d" 'docker)
+  ;;; --- Docker list: keep column widths even after `g` (revert-buffer) -------
+  (defvar my-docker-images-widths '(("Repository" . 80))
+    "Widths for docker images buffer.")
+  (defvar my-docker-containers-widths '(("Image" . 60))
+    "Widths for docker containers buffer.")
+
+  (defun my-docker--set-widths (mapping)
+    "Apply column WIDTHs per MAPPING ((\"Name\" . WIDTH) ...) to current tabulated list."
+    (let* ((fmt (copy-sequence tabulated-list-format))
+           (changed nil))
+      (dotimes (i (length fmt))
+        (let* ((col  (aref fmt i))
+               (name (if (vectorp col) (aref col 0) (car col)))
+               (w    (cdr (assoc name mapping))))
+          (when w
+            (setq changed t)
+            (if (vectorp col) (aset col 1 w) (setcar (cdr col) w))
+            (aset fmt i col))))
+      (when changed
+        (setq tabulated-list-format fmt)
+        (setq-local truncate-lines t)
+        (tabulated-list-init-header)
+        (tabulated-list-print t))))
+
+  (defun my-docker--apply-widths-for-current-mode (&rest _)
+    "Detect docker list buffer kind and apply widths.
+Designed to be used in `after-revert-hook` and on initial setup."
+    (cond
+     ((memq major-mode '(docker-images-mode docker-image-mode))
+      (my-docker--set-widths my-docker-images-widths))
+     ((memq major-mode '(docker-containers-mode docker-container-mode))
+      (my-docker--set-widths my-docker-containers-widths))))
+
+  (defun my-docker--setup ()
+    "Install local hooks so `g` (revert-buffer) reapplies widths."
+    (run-at-time 0 nil #'my-docker--apply-widths-for-current-mode)
+    (add-hook 'after-revert-hook #'my-docker--apply-widths-for-current-mode nil t)
+    (add-hook 'tabulated-list-revert-hook #'my-docker--apply-widths-for-current-mode nil t))
+
+  (with-eval-after-load 'docker
+    (dolist (hk '(docker-images-mode-hook docker-image-mode-hook
+                                          docker-containers-mode-hook docker-container-mode-hook))
+      (when (boundp hk)
+        (add-hook hk #'my-docker--setup))))
   )
 
 (use-package yaml-mode
