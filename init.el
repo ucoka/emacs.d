@@ -1775,7 +1775,7 @@ Designed to be used in `after-revert-hook` and on initial setup."
 ;  )
 
 ;---- go-translate ----
-(use-package go-translate
+(use-package gt
   :ensure t
   :config
   ;; Initialize the default translator, let it translate between en and ja via Google Translate,
