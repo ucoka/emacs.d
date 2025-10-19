@@ -29,10 +29,6 @@
 
 ;(setenv "PATH" (concat "c:/msys64/mingw64/bin;c:/msys64/usr/bin;" (getenv "PATH")))
 
-(if (and (eq system-type 'gnu/linux) (string-match "Ubuntu" (shell-command-to-string "lsb_release -d")))
-    (add-to-list 'load-path "/usr/share/emacs/site-lisp/global")
-    )
-
 ;---- 0. checking environment ----
 (defun raspberry-pi-p ()
   ""
@@ -200,7 +196,6 @@
 ;;;mode-switching
 (define-key global-map "\C-cmh" 'hide-ifdef-mode) ; hide-ifdef-mode
 (define-key global-map "\C-cmx" 'hexl-mode)       ; hexl-mode
-(define-key global-map "\C-cmg" 'gtags-mode)      ; gtags-mode
 
 
 ;; [global unset key]
@@ -421,44 +416,6 @@
 ;
 ;;;
 
-;--- GNU GLOBAL(gtags) gtags.el ---
-;new setting
-(when (locate-library "gtags")
-  (require 'gtags)
-
-  (global-set-key "\M-t" 'gtags-find-tag) ;To the function definition source
-  (global-set-key "\M-r" 'gtags-find-rtag) ;To function reference
-  (global-set-key "\M-s" 'gtags-find-symbol) ;To variable definition source/reference
-  (global-set-key "\M-f" 'gtags-find-file)
-  (global-set-key "\M-p" 'gtags-find-pattern)
-  (global-set-key [?\C-,] 'gtags-pop-stack)    ;Return to previous buffer
-
-  (setq gtags-mode-hook
-        '(lambda ()
-           (setq gtags-select-buffer-single t)
-;           (setq gtags-folllows-case-fold-search t)
-           (global-set-key [?\C-,] 'gtags-pop-stack)    ;Return to previous buffer
-           ))
-
-  (add-hook 'gtags-select-mode-hook
-            '(lambda ()
-               (setq hl-line-face 'underline)
-               (hl-line-mode 1)
-               ))
-)
-
-;---- gtags-ex ----
-(when (locate-library "gtags-ex")
-  (require 'gtags-ex)
-  (global-set-key "\C-cgu" 'gtags-ex-update)
-  (defadvice save-buffer (after after-save-buffer ())
-    "after save-buffer process"
-    (progn
-      (gtags-ex-update-on-background))
-    )
-  (ad-activate 'save-buffer)
-  )
-
 ;---- hexl-mode ----
 (setq auto-mode-alist
       (append '(
@@ -478,12 +435,9 @@
                 ("\\.cmn$" . c-mode) ; .cmn file : c-mode
                 ) auto-mode-alist))
 ;
-(defun my-gtags-init-on-c-mode ()
+(defun my-init-on-c-mode ()
   (progn
   (c-set-style "k&r") ;style for "Programming Language C (aka K&R)
-  (when (locate-library "gtags")
-    (gtags-mode 1) ;gtags-mode on when c-mode
-    )
   (hide-ifdef-mode 1) ;in c-mode, hide-ifdef-mode is on
   (hs-minor-mode 1)
 
@@ -499,13 +453,13 @@
 (add-hook
  'c-mode-hook
  '(lambda()
-;    (my-gtags-init-on-c-mode)
+    (my-init-on-c-mode)
 ))
 
 (add-hook
  'c++-mode-hook
  '(lambda()
-;    (my-gtags-init-on-c-mode)
+    (my-init-on-c-mode)
 ))
 ;;;
 
