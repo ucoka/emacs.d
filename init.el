@@ -976,6 +976,7 @@ Activate on all buffers." t)
 
 (setq hide-ifdef-mode-hook
       (lambda ()
+        (my/hide-ifdef-import-defines-from-compile-commands)
         (if (not hide-ifdef-define-alist)
             (setq hide-ifdef-define-alist
                   '((default1 CONFIG_BOARD1 \1)
@@ -987,6 +988,36 @@ Activate on all buffers." t)
 (setq hide-ifdef-initially t)
 (setq hide-ifdef-lines nil) ; if t, do not show #if, #ifdef, #ifndef, #else, #endif, etc. lines
 (setq hide-ifdef-shadow t)
+
+(defun my/hide-ifdef-import-defines-from-compile-commands ()
+  (when-let* ((root (or (when (fboundp 'project-current)
+                          (when-let ((pr (project-current nil))) (project-root pr)))
+                        default-directory))
+              (json (or (locate-dominating-file root "compile_commands.json")
+                        (expand-file-name "compile_commands.json" root))))
+    (when (file-readable-p json)
+      (let* ((json-object-type 'hash-table)
+             (json-array-type 'list)
+             (data (json-parse-string (with-temp-buffer
+                                        (insert-file-contents json)
+                                        (buffer-string))
+                                      :object-type 'hash-table :array-type 'list))
+             (defs '()))
+        (dolist (entry data)
+          (let ((cmd (or (gethash "command" entry)
+                         (when-let ((args (gethash "arguments" entry)))
+                           (mapconcat #'identity args " ")))))
+            (when cmd
+              (with-temp-buffer
+                (insert cmd)
+                (goto-char (point-min))
+                (while (re-search-forward
+                        "\\(?:^\\|[ \t]\\)-D\\([A-Za-z_][A-Za-z0-9_]*\\)\\(?:=[^ \t\"']+\\)?"
+                        nil t)
+                  (push (match-string 1) defs))))))
+        (setq defs (delete-dups defs))
+        (dolist (sym defs) (ignore-errors (hide-ifdef-define sym))))
+      (hide-ifdefs))))
 
 ;; === hideshow.el ===
 (setq hs-hide-comments-when-hiding-all nil)
