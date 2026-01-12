@@ -1382,8 +1382,10 @@ Activate on all buffers." t)
   (js-mode . lsp)
   (typescript-mode . lsp)
   (go-mode . lsp)
+  (zig-mode . lsp-deferred)
   :custom
   (lsp-rust-server 'rust-analyzer)
+  (lsp-zig-zls-executable "zls")
   :config
   (setq lsp-references-exclude-definition t) ; "If non-nil, exclude declarations when finding references."
   (setq exec-path (cons (expand-file-name "~/bin") exec-path))
