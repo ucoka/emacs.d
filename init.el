@@ -1190,17 +1190,22 @@ Activate on all buffers." t)
   )
 
 ;---- plantuml ----
-(when (locate-library "plantuml-mode")
+; you need to install "plantuml" first
+(use-package plantuml-mode
+  :ensure t
+  :config
   (require 'plantuml-mode)
   (if (featurep 'w32)
       (setq plantuml-jar-path "C:\\usr\\gnu\\bin\\plantuml.jar")
     (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar"))
   (setq plantuml-default-exec-mode 'jar)
+  (setq plantuml-output-type "png")
   (setq auto-mode-alist
         (append '(
                   ("\\.pu$" . plantuml-mode)
                   ("\\.puml$" . plantuml-mode)
                   ) auto-mode-alist))
+  (global-set-key "\C-cpp" 'plantuml-preview-current-block)
   )
 
 (use-package flycheck
