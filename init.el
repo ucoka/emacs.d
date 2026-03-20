@@ -187,7 +187,7 @@
 (define-key global-map "\C-h" 'backward-delete-char-untabify)    ; (custom)
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-f") nil) ; To disable elisp-byte-compile-file
-(define-key global-map "\C-c\C-f" 'up-list) ;(custom) move to corresponding parenthesis (down)
+(define-key global-map "\C-cf" 'up-list) ;(custom) move to corresponding parenthesis (down)
 (define-key global-map "\C-c\C-o" 'backward-up-list) ;(custom) move to the corresponding parenthesis (upward)
 
 (define-key global-map "\M-?" 'help-command) ;(custom) help-command
@@ -863,22 +863,34 @@ Activate on all buffers." t)
   (load "color-occur")
 )
 
-;=== w3m ===
-(autoload 'w3m "w3m" "Interface for w3m on Emacs." t)
-(autoload 'w3m-find-file "w3m" "w3m interface function for local file." t)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-(autoload 'w3m-search "w3m-search" "Search QUERY using SEARCH-ENGINE." t)
-(autoload 'w3m-weather "w3m-weather" "Display weather report." t)
-(autoload 'w3m-antenna "w3m-antenna" "Report chenge of WEB sites." t)
-
-(add-hook 'w3m-mode-hook
-	  '(lambda ()
-	     (set-face-foreground 'w3m-anchor-face "DodgerBlue")
-	     (set-face-foreground 'w3m-arrived-anchor-face "SteelBlue")
-	     ))
+;---- w3m ----
+;(use-package w3m
+;  :ensure t
+;  :config
+;  (add-hook 'w3m-mode-hook
+;            '(lambda ()
+;               (set-face-foreground 'w3m-anchor "DodgerBlue")
+;               (set-face-foreground 'w3m-arrived-anchor "SteelBlue")
+;               ))
+;  )
+;(autoload 'w3m "w3m" "Interface for w3m on Emacs." t)
+;(autoload 'w3m-find-file "w3m" "w3m interface function for local file." t)
+;(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+;(autoload 'w3m-search "w3m-search" "Search QUERY using SEARCH-ENGINE." t)
+;(autoload 'w3m-weather "w3m-weather" "Display weather report." t)
+;(autoload 'w3m-antenna "w3m-antenna" "Report chenge of WEB sites." t)
+;
+;(add-hook 'w3m-mode-hook
+;	  '(lambda ()
+;	     (set-face-foreground 'w3m-anchor-face "DodgerBlue")
+;	     (set-face-foreground 'w3m-arrived-anchor-face "SteelBlue")
+;	     ))
 ;;;
-(global-set-key "\C-cmw" 'w3m)
+;(global-set-key "\C-cmw" 'w3m)
 
+;---- xwidget-webkit ----
+(when (featurep 'xwidget-internal)
+  (setq browse-url-browser-function 'xwidget-webkit-browse-url))
 
 ;;=== speedbar ===
 (define-key global-map "\C-cbs" 'speedbar)
