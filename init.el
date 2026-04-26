@@ -1379,6 +1379,10 @@ Activate on all buffers." t)
        (magit-restore-window-configuration)
        (mapc #'kill-buffer buffers)))
    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+   (if (featurep 'w32) ; NTEmacs
+       (progn
+         (setq magit-refresh-status-buffer nil)
+         ))
    )
 
 (use-package forge
