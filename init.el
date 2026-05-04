@@ -1520,7 +1520,9 @@ Activate on all buffers." t)
 ;(setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}"))
 
 (defvar wl-copy-process nil) ; This variable must be outside the following block.
-(if (featurep 'pgtk)
+(when (and (featurep 'pgtk)
+           (let ((wd (getenv "WAYLAND_DISPLAY")))
+             (and wd (not (string-empty-p wd)))))
     ; you need to install "wl-clipboard" first
     (if (and (zerop (call-process "which" nil nil nil "wl-copy"))
              (zerop (call-process "which" nil nil nil "wl-paste")))
