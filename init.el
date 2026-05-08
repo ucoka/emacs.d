@@ -1703,8 +1703,10 @@ Designed to be used in `after-revert-hook` and on initial setup."
         "[A]"
       "[あ]"))))
 
-(setq-default mode-line-format
-              (cons '(:eval (my-fcitx5-indicator)) mode-line-format))
+(unless (featurep 'w32)
+  (setq-default mode-line-format
+		(cons '(:eval (my-fcitx5-indicator)) mode-line-format))
+  )
 
 ;;---- mermaid ----
 (use-package ob-mermaid
