@@ -1379,6 +1379,9 @@ Activate on all buffers." t)
        (magit-restore-window-configuration)
        (mapc #'kill-buffer buffers)))
    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+   (with-eval-after-load 'git-commit
+     (define-key git-commit-mode-map (kbd "C-c m") #'copilot-chat-insert-commit-message))
+   (add-hook 'git-commit-setup-hook 'copilot-chat-insert-commit-message)
    (if (featurep 'w32) ; NTEmacs
        (progn
          (setq magit-refresh-status-buffer nil)
@@ -1975,17 +1978,23 @@ Designed to be used in `after-revert-hook` and on initial setup."
 ;  ;; Turn on automatic cleaning of useless buffers
 ;  (clean-buffers-turn-on-auto-clean-buffers))
 
-; you have to run M-x copilot-install-server before using
+; you have to run M-x copilot-install-server and copilot-login before using
 (use-package copilot
   :ensure t
-)
-
-(use-package copilot-chat
-  :ensure t
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . copilot-accept-completion)
+              ("TAB"   . copilot-accept-completion))
   :config
-  (global-set-key "\M-c" 'copilot-chat-transient)
-  (global-set-key "\M-C" 'copilot-mode)
-)
+  (global-set-key (kbd "M-c") 'copilot-menu)
+  (global-set-key (kbd "M-C") 'copilot-mode))
+
+;(use-package copilot-chat
+;  :ensure t
+;  :config
+;  (global-set-key "\M-c" 'copilot-chat-transient)
+;  (global-set-key "\M-C" 'copilot-mode)
+;)
 
 (when (raspberry-pi-p)
   (setq gnutls-algorithm-priority "NORMAL-VERS-TLS1.3")
