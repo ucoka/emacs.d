@@ -1398,7 +1398,7 @@ Activate on all buffers." t)
   :demand t
   :hook
   (java-mode . lsp)
-  (rust-mode . lsp)
+  (rust-mode . lsp-deferred)
   (c-mode . lsp)
   (c++-mode . lsp)
   (python-mode . lsp)
@@ -1452,6 +1452,9 @@ Activate on all buffers." t)
 ;  (setq lsp-clients-clangd-executable "/snap/bin/clangd")
 ;  (with-eval-after-load 'lsp-mode
 ;    (require 'lsp-clangd))
+
+  (setq lsp-rust-analyzer-server-command
+        '("~/.cargo/bin/rust-analyzer"))
 )
 
 (with-eval-after-load 'lsp-mode
