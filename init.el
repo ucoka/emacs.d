@@ -1,5 +1,4 @@
-;;;
-; init.el
+;;; init.el --- init file   -*- lexical-binding: t -*-
 ;
 ;
 ;;;;
